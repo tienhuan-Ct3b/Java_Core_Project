@@ -6,6 +6,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -15,11 +16,23 @@ import javax.swing.JPanel;
  */
 public class BaseForm extends javax.swing.JFrame {
 
+    private static final String currentDir = System.getProperty("user.dir");
+    private static final String separator = File.separator;
+    private String StrSanPham = currentDir + separator + "data" + separator + "SanPham.csv";
+    private String StrHoaDonBanHang = currentDir + separator + "data" + separator + "HoaDonBanHang.csv";
+    private String StrHoaDonNhapHang = currentDir + separator + "data" + separator + "HoaDonNhapHang.csv";
+    File FileSanPham = new File(StrSanPham);
+    File FileHoaDonBanHang = new File(StrHoaDonBanHang);
+    File FileHoaDonNhapHang = new File(StrHoaDonNhapHang);
+
     /**
      * Creates new form BaseForm
      */
     public BaseForm() {
         initComponents();
+        checkFile(FileSanPham);
+        checkFile(FileHoaDonBanHang);
+        checkFile(FileHoaDonNhapHang);
     }
 
     /**
@@ -226,6 +239,12 @@ public class BaseForm extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_NhapHangButtonActionPerformed
+
+    public void checkFile(File f) {
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+    }
 
     /**
      * @param args the command line arguments

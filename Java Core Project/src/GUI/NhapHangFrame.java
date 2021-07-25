@@ -184,16 +184,9 @@ public class NhapHangFrame extends javax.swing.JFrame {
                 "STT", "Mã Sản Phẩm", "Tên Sản Phẩm", "Nhà Sản Xuất", "Số Lượng", "Giá Nhập", "Thành Tiền"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, true, true, true, true, true, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];

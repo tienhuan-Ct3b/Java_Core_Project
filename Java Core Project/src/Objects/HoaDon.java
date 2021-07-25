@@ -1,9 +1,9 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HoaDon;
+package Objects;
 
 import java.time.LocalDate;
 
@@ -11,21 +11,21 @@ import java.time.LocalDate;
  *
  * @author Admin
  */
-public class Hoa_Don {
+public class HoaDon {
     private String maHoaDon;
     private LocalDate ngayLap;
-    private String maHang;
+    private String maSanPham;
     private int soLuong;
     private int gia;
     private long thanhTien;
 
-    public Hoa_Don() {
+    public HoaDon() {
     }
 
-    public Hoa_Don(String maHoaDon, LocalDate ngayLap, String maHang, int soLuong, int gia, long thanhTien) {
+    public HoaDon(String maHoaDon, LocalDate ngayLap, String maSanPham, int soLuong, int gia, long thanhTien) {
         this.maHoaDon = maHoaDon;
         this.ngayLap = ngayLap;
-        this.maHang = maHang;
+        this.maSanPham = maSanPham;
         this.soLuong = soLuong;
         this.gia = gia;
         this.thanhTien = thanhTien;
@@ -55,12 +55,12 @@ public class Hoa_Don {
         this.ngayLap = ngayLap;
     }
 
-    public String getMaHang() {
-        return maHang;
+    public String getMaSanPham() {
+        return maSanPham;
     }
 
-    public void setMaHang(String maHang) {
-        this.maHang = maHang;
+    public void setMaSanPham(String maSanPham) {
+        this.maSanPham = maSanPham;
     }
 
     public int getSoLuong() {
@@ -81,7 +81,7 @@ public class Hoa_Don {
 
     @Override
     public String toString() {
-        return "Hoa_Don{" + "maHoaDon=" + maHoaDon + ", ngayLap=" + ngayLap + ", maHang=" + maHang + ", soLuong=" + soLuong + ", gia=" + gia + ", thanhTien=" + thanhTien ;
+        return "HoaDon{" + "maHoaDon=" + maHoaDon + ", ngayLap=" + ngayLap + ", maSanPham=" + maSanPham + ", soLuong=" + soLuong + ", gia=" + gia + ", thanhTien=" + thanhTien ;
     }
 
     

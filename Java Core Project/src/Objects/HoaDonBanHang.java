@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HoaDon;
+package Objects;
 
 import java.time.LocalDate;
 
@@ -11,18 +11,18 @@ import java.time.LocalDate;
  *
  * @author Admin
  */
-public class Hoa_Don_Ban_Hang extends Hoa_Don{
+public class HoaDonBanHang extends HoaDon{
     private int giamGia;
 
-    public Hoa_Don_Ban_Hang() {
+    public HoaDonBanHang() {
     }
 
-    public Hoa_Don_Ban_Hang(int giamGia) {
+    public HoaDonBanHang(int giamGia) {
         this.giamGia = giamGia;
     }
 
-    public Hoa_Don_Ban_Hang(int giamGia, String maHoaDon, LocalDate ngayLap, String maHang, int soLuong, int gia, long thanhTien) {
-        super(maHoaDon, ngayLap, maHang, soLuong, gia, thanhTien);
+    public HoaDonBanHang(int giamGia, String maHoaDon, LocalDate ngayLap, String maSanPham, int soLuong, int gia, long thanhTien) {
+        super(maHoaDon, ngayLap, maSanPham, soLuong, gia, thanhTien);
         this.giamGia = giamGia;
     }
 

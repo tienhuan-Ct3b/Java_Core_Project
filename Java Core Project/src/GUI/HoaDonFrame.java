@@ -5,17 +5,34 @@
  */
 package GUI;
 
+import Objects.HoaDonBanHang;
+import Objects.HoaDonNhapHang;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import FileIOCSV.FileIOHoaDon;
+
 /**
  *
  * @author admin
  */
 public class HoaDonFrame extends javax.swing.JFrame {
+    
+    List<HoaDonBanHang> listHDBH = new ArrayList<>();
+    List<HoaDonNhapHang> listHDNH = new ArrayList<>();
+    DefaultTableModel BanHangModel;
+    DefaultTableModel NhapHangModel;
+    FileIOHoaDon f = new FileIOHoaDon();
 
     /**
      * Creates new form HoaDonFrame
      */
     public HoaDonFrame() {
         initComponents();
+        listHDBH = f.BanHangReadCSV(f.FileHoaDonBanHang);
+        listHDNH = f.NhapHangReadCSV(f.FileHoaDonNhapHang);
+        BanHangModel = (DefaultTableModel) BanHangTable.getModel();
+        NhapHangModel = (DefaultTableModel) NhapHangTable.getModel();
     }
 
     /**
@@ -31,7 +48,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
         HoaDonBanHang = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        BanHangTable = new javax.swing.JTable();
         PrintButton1 = new javax.swing.JButton();
         EditButton1 = new javax.swing.JButton();
         DeleteButton1 = new javax.swing.JButton();
@@ -42,7 +59,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
         HoaDonNhapHang = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        NhapHangTable = new javax.swing.JTable();
         PrintButton2 = new javax.swing.JButton();
         EditButton2 = new javax.swing.JButton();
         DeleteButton2 = new javax.swing.JButton();
@@ -59,32 +76,24 @@ public class HoaDonFrame extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Hóa Đơn Bán Hàng");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        BanHangTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "STT", "Mã Hóa Đơn", "Ngày Lập", "Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá", "Giảm Giá", "Thành Tiền"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(35);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(3).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(150);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(80);
+        ));
+        jScrollPane1.setViewportView(BanHangTable);
+        if (BanHangTable.getColumnModel().getColumnCount() > 0) {
+            BanHangTable.getColumnModel().getColumn(0).setMinWidth(35);
+            BanHangTable.getColumnModel().getColumn(0).setMaxWidth(35);
+            BanHangTable.getColumnModel().getColumn(1).setMinWidth(80);
+            BanHangTable.getColumnModel().getColumn(3).setMinWidth(80);
+            BanHangTable.getColumnModel().getColumn(4).setMinWidth(150);
+            BanHangTable.getColumnModel().getColumn(5).setMinWidth(80);
+            BanHangTable.getColumnModel().getColumn(7).setMinWidth(50);
+            BanHangTable.getColumnModel().getColumn(7).setMaxWidth(80);
         }
 
         PrintButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -189,7 +198,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Hóa Đơn Nhập Hàng");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        NhapHangTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -205,15 +214,15 @@ public class HoaDonFrame extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setMinWidth(35);
-            jTable2.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTable2.getColumnModel().getColumn(1).setMinWidth(80);
-            jTable2.getColumnModel().getColumn(3).setMinWidth(150);
-            jTable2.getColumnModel().getColumn(4).setMinWidth(80);
-            jTable2.getColumnModel().getColumn(5).setMinWidth(150);
-            jTable2.getColumnModel().getColumn(6).setMinWidth(80);
+        jScrollPane2.setViewportView(NhapHangTable);
+        if (NhapHangTable.getColumnModel().getColumnCount() > 0) {
+            NhapHangTable.getColumnModel().getColumn(0).setMinWidth(35);
+            NhapHangTable.getColumnModel().getColumn(0).setMaxWidth(35);
+            NhapHangTable.getColumnModel().getColumn(1).setMinWidth(80);
+            NhapHangTable.getColumnModel().getColumn(3).setMinWidth(150);
+            NhapHangTable.getColumnModel().getColumn(4).setMinWidth(80);
+            NhapHangTable.getColumnModel().getColumn(5).setMinWidth(150);
+            NhapHangTable.getColumnModel().getColumn(6).setMinWidth(80);
         }
 
         PrintButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -368,7 +377,10 @@ public class HoaDonFrame extends javax.swing.JFrame {
     private void ExitButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ExitButton2ActionPerformed
-
+    
+    public void showResult(){
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -406,6 +418,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable BanHangTable;
     private javax.swing.JButton DeleteButton1;
     private javax.swing.JButton DeleteButton2;
     private javax.swing.JButton EditButton1;
@@ -416,6 +429,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
     private javax.swing.JTextField FindField2;
     private javax.swing.JPanel HoaDonBanHang;
     private javax.swing.JPanel HoaDonNhapHang;
+    private javax.swing.JTable NhapHangTable;
     private javax.swing.JButton PrintButton1;
     private javax.swing.JButton PrintButton2;
     private javax.swing.JButton SaveButton1;
@@ -427,7 +441,5 @@ public class HoaDonFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

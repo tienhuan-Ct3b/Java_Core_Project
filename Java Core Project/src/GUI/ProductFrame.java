@@ -5,13 +5,19 @@
  */
 package GUI;
 
+import Objects.SanPham;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
+import FileIOCSV.FileIOSanPham;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,8 +25,15 @@ import javax.swing.text.MaskFormatter;
  */
 public class ProductFrame extends javax.swing.JFrame {
     
+    List<SanPham> listSanPham = new ArrayList<>();
+    FileIOSanPham f = new FileIOSanPham();
+    DefaultTableModel SanPhamModel;
+    
+
     public ProductFrame() {
         initComponents();
+        listSanPham = f.SanPhamReadCSV(f.FileSanPham);
+        SanPhamModel = (DefaultTableModel) SanPhamTable.getModel();
     }
 
     /**
@@ -56,7 +69,7 @@ public class ProductFrame extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         SearchField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        SanPhamTable = new javax.swing.JTable();
         AddButton = new javax.swing.JButton();
         DeleteButton = new javax.swing.JButton();
         EditButton = new javax.swing.JButton();
@@ -100,9 +113,19 @@ public class ProductFrame extends javax.swing.JFrame {
 
         PriceField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         PriceField.setToolTipText("");
+        PriceField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PriceFieldKeyReleased(evt);
+            }
+        });
 
         MFDField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         MFDField.setToolTipText("");
+        MFDField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                MFDFieldKeyReleased(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Số Lượng");
@@ -140,8 +163,8 @@ public class ProductFrame extends javax.swing.JFrame {
         SearchField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         SearchField.setToolTipText("");
 
-        jTable1.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        SanPhamTable.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        SanPhamTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -149,36 +172,29 @@ public class ProductFrame extends javax.swing.JFrame {
                 "STT", "Mã Sản Phẩm", "Tên Sản Phẩm", "Loại", "Số Lượng", "Đơn Vị Tính", "Giá Nhập", "Giá Bán", "Nhà Sản Xuất", "Ngày Sản Xuất", "Hạn Sử dụng"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(35);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(35);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTable1.getColumnModel().getColumn(3).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(3).setMaxWidth(80);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(80);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(80);
+        SanPhamTable.setColumnSelectionAllowed(true);
+        SanPhamTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(SanPhamTable);
+        SanPhamTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (SanPhamTable.getColumnModel().getColumnCount() > 0) {
+            SanPhamTable.getColumnModel().getColumn(0).setMinWidth(35);
+            SanPhamTable.getColumnModel().getColumn(0).setMaxWidth(35);
+            SanPhamTable.getColumnModel().getColumn(1).setMinWidth(80);
+            SanPhamTable.getColumnModel().getColumn(1).setMaxWidth(80);
+            SanPhamTable.getColumnModel().getColumn(3).setMinWidth(80);
+            SanPhamTable.getColumnModel().getColumn(3).setMaxWidth(80);
+            SanPhamTable.getColumnModel().getColumn(4).setMinWidth(80);
+            SanPhamTable.getColumnModel().getColumn(4).setMaxWidth(80);
+            SanPhamTable.getColumnModel().getColumn(5).setMinWidth(80);
+            SanPhamTable.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 
         AddButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -457,6 +473,21 @@ public class ProductFrame extends javax.swing.JFrame {
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         // TODO add your handling code here:
+        SanPham s = new SanPham();
+        s.setMaSanPham(IDField.getText());
+        s.setTenSanPham(NameField.getText());
+        s.setNhaSX(NhaSXField.getText());
+        s.setLoaiSanPham(LoaiSPField.getText());
+        s.setSoLuong(Integer.parseInt(QuantityField.getText()));
+        s.setDonViTinh(DonViTinhField.getText());
+        s.setGiaNhap(Integer.parseInt(PriceField.getText()));
+        s.setGiaBan();
+        LocalDate NSX = LocalDate.parse(MFDField.getText(), DateTimeFormatter.ofPattern("dd-MM-YYYY"));
+        LocalDate HSD = LocalDate.parse(EXPField.getText(), DateTimeFormatter.ofPattern("dd-MM-YYYY"));
+        s.setNSX(NSX);
+        s.setHSD(HSD);
+        listSanPham.add(s);
+        showTable();
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
@@ -498,8 +529,9 @@ public class ProductFrame extends javax.swing.JFrame {
     private void LocButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LocButtonActionPerformed
-    
-    private void setTextDate() {
+
+    private void MFDFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MFDFieldKeyReleased
+        // TODO add your handling code here:
         MaskFormatter mf;
         JFormattedTextField dateFormat = null;
         try {
@@ -507,13 +539,25 @@ public class ProductFrame extends javax.swing.JFrame {
             mf.setPlaceholderCharacter('#');
             dateFormat = new JFormattedTextField(mf);
             dateFormat.setColumns(8);
+            MFDField.add(dateFormat);
         } catch (ParseException ex) {
             Logger.getLogger(ProductFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        MFDField.add(dateFormat);
-        
-    }
 
+    }//GEN-LAST:event_MFDFieldKeyReleased
+
+    private void PriceFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PriceFieldKeyReleased
+        // TODO add your handling code here:
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setGroupingUsed(true);
+        nf.format(Double.parseDouble(PriceField.getText()));
+    }//GEN-LAST:event_PriceFieldKeyReleased
+    
+    public void showTable(){
+        for(SanPham s : listSanPham){
+            SanPhamModel.addRow(rowData);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -571,6 +615,7 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JTextField QuantityField;
     private javax.swing.JRadioButton QuatityRadioButton;
     private javax.swing.JButton ResetButton;
+    private javax.swing.JTable SanPhamTable;
     private javax.swing.JButton SaveButton;
     private javax.swing.JTextField SearchField;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -590,7 +635,6 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
 }
