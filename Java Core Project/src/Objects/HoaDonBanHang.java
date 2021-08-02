@@ -5,24 +5,24 @@
  */
 package Objects;
 
+import com.opencsv.bean.CsvBindByPosition;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class HoaDonBanHang extends HoaDon{
+public class HoaDonBanHang extends HoaDon {
+    
+    @CsvBindByPosition(position = 3)
     private int giamGia;
 
     public HoaDonBanHang() {
     }
 
-    public HoaDonBanHang(int giamGia) {
-        this.giamGia = giamGia;
-    }
-
-    public HoaDonBanHang(int giamGia, String maHoaDon, LocalDate ngayLap, String maSanPham, int soLuong, int gia, long thanhTien) {
-        super(maHoaDon, ngayLap, maSanPham, soLuong, gia, thanhTien);
+    public HoaDonBanHang(LocalDate ngayLap, List<Objects.SanPham> SanPham, int giamGia, long thanhTien) {
+        super(ngayLap, SanPham, thanhTien);
         this.giamGia = giamGia;
     }
 
@@ -33,10 +33,4 @@ public class HoaDonBanHang extends HoaDon{
     public void setGiamGia(int giamGia) {
         this.giamGia = giamGia;
     }
-
-   @Override
-    public String toString() {
-        return super.toString() + ", giamGia=" + giamGia + '}'; //To change body of generated methods, choose Tools | Templates.
-    } 
-    
 }

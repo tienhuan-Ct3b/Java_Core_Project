@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import QuanLy.QuanLySanPham;
 import Objects.SanPham;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -17,6 +18,7 @@ import javax.swing.text.MaskFormatter;
 import FileIOCSV.FileIOSanPham;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,16 +26,20 @@ import javax.swing.table.DefaultTableModel;
  * @author admin
  */
 public class ProductFrame extends javax.swing.JFrame {
-    
-    List<SanPham> listSanPham = new ArrayList<>();
+
+    public List<SanPham> listSanPham = new ArrayList<>();
+
     FileIOSanPham f = new FileIOSanPham();
+    QuanLySanPham quanLySanPham = new QuanLySanPham();
     DefaultTableModel SanPhamModel;
-    
+    private int selectedIndex;
 
     public ProductFrame() {
         initComponents();
-        listSanPham = f.SanPhamReadCSV(f.FileSanPham);
+        listSanPham = f.SanPhamReadCSV();
         SanPhamModel = (DefaultTableModel) SanPhamTable.getModel();
+        UpdateTable();
+        selectedIndex = SanPhamTable.getSelectedRow();
     }
 
     /**
@@ -86,6 +92,7 @@ public class ProductFrame extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         LocButton = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sản Phẩm");
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -473,29 +480,26 @@ public class ProductFrame extends javax.swing.JFrame {
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         // TODO add your handling code here:
-        SanPham s = new SanPham();
-        s.setMaSanPham(IDField.getText());
-        s.setTenSanPham(NameField.getText());
-        s.setNhaSX(NhaSXField.getText());
-        s.setLoaiSanPham(LoaiSPField.getText());
-        s.setSoLuong(Integer.parseInt(QuantityField.getText()));
-        s.setDonViTinh(DonViTinhField.getText());
-        s.setGiaNhap(Integer.parseInt(PriceField.getText()));
-        s.setGiaBan();
-        LocalDate NSX = LocalDate.parse(MFDField.getText(), DateTimeFormatter.ofPattern("dd-MM-YYYY"));
-        LocalDate HSD = LocalDate.parse(EXPField.getText(), DateTimeFormatter.ofPattern("dd-MM-YYYY"));
-        s.setNSX(NSX);
-        s.setHSD(HSD);
-        listSanPham.add(s);
-        showTable();
+        quanLySanPham.ThemSP(setSanPham());
+        selectedIndex = -1;
+        Reset();
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
         // TODO add your handling code here:
+        if (selectedIndex == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Hãy chọn sản phẩm cần xóa!");
+        } else {
+            quanLySanPham.XoaSP(setSanPham());
+        }
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
     private void EditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButtonActionPerformed
-        // TODO add your handling code here:
+        if (selectedIndex == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Hãy chọn sản phẩm cần sửa!");
+        } else {
+            quanLySanPham.SuaSP(setSanPham());
+        }
     }//GEN-LAST:event_EditButtonActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
@@ -509,13 +513,7 @@ public class ProductFrame extends javax.swing.JFrame {
 
     private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
         // TODO add your handling code here:
-        IDField.setText("");
-        NameField.setText("");
-        NhaSXField.setText("");
-        LoaiSPField.setText("");
-        QuantityField.setText("");
-        DonViTinhField.setText("");
-        PriceField.setText("");
+        Reset();
     }//GEN-LAST:event_ResetButtonActionPerformed
 
     private void QuatityRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuatityRadioButtonActionPerformed
@@ -552,12 +550,62 @@ public class ProductFrame extends javax.swing.JFrame {
         nf.setGroupingUsed(true);
         nf.format(Double.parseDouble(PriceField.getText()));
     }//GEN-LAST:event_PriceFieldKeyReleased
-    
-    public void showTable(){
-        for(SanPham s : listSanPham){
-            SanPhamModel.addRow(rowData);
+
+    public SanPham setSanPham() {
+        SanPham s = new SanPham();
+        s.setTenSanPham(NameField.getText());
+        s.setNhaSX(NhaSXField.getText());
+        s.setLoaiSanPham(LoaiSPField.getText());
+        s.setSoLuong(Integer.parseInt(QuantityField.getText()));
+        s.setDonViTinh(DonViTinhField.getText());
+        s.setGiaNhap(Integer.parseInt(PriceField.getText()));
+        s.setGiaBan();
+        LocalDate NSX = LocalDate.parse(MFDField.getText(), DateTimeFormatter.ofPattern("dd-MM-YYYY"));
+        LocalDate HSD = LocalDate.parse(EXPField.getText(), DateTimeFormatter.ofPattern("dd-MM-YYYY"));
+        s.setNSX(NSX);
+        s.setHSD(HSD);
+        return s;
+    }
+
+    public void showInfo() {
+        if (selectedIndex > -1) {
+            SanPham s = listSanPham.get(selectedIndex);
+            IDField.setText(String.valueOf(s.getMaSanPham()));
+            NameField.setText(s.getTenSanPham());
+            NhaSXField.setText(s.getNhaSX());
+            LoaiSPField.setText(s.getLoaiSanPham());
+            QuantityField.setText(String.valueOf(s.getSoLuong()));
+            DonViTinhField.setText(s.getDonViTinh());
+            PriceField.setText(String.valueOf(s.getGiaNhap()));
+            MFDField.setText(String.valueOf(s.getNSX()));
+            EXPField.setText(String.valueOf(s.getHSD()));
         }
     }
+
+    public void Reset() {
+        IDField.setText("");
+        NameField.setText("");
+        NhaSXField.setText("");
+        LoaiSPField.setText("");
+        QuantityField.setText("");
+        DonViTinhField.setText("");
+        PriceField.setText("");
+        MFDField.setText("");
+        EXPField.setText("");
+    }
+
+    int i = 1;
+
+    public void UpdateTable() {
+        List<SanPham> list = f.SanPhamReadCSV();
+        for (SanPham s : list) {
+            SanPhamModel.addRow(new Object[]{i, s.getMaSanPham(), s.getTenSanPham(), s.getLoaiSanPham(), s.getSoLuong(), s.getDonViTinh(), s.getGiaNhap(), s.getGiaBan(), s.getNhaSX(), s.getNSX(), s.getHSD()});
+            i++;
+        }
+
+        SanPhamTable.scrollRectToVisible(SanPhamTable.getCellRect(SanPhamTable.getRowCount() - 1, 0, true));
+    }
+
     /**
      * @param args the command line arguments
      */

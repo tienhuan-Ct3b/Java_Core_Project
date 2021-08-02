@@ -1,25 +1,40 @@
 package Objects;
 
+import com.opencsv.bean.CsvBindByPosition;
+import com.opencsv.bean.CsvDate;
 import java.time.LocalDate;
 
 public class SanPham {
 
-    private String maSanPham;
+    private int maSanPhamLast = 10000;
+    @CsvBindByPosition(position = 0)
+    private int maSanPham;
+    @CsvBindByPosition(position = 1)
     private String tenSanPham;
+    @CsvBindByPosition(position = 2)
     private String nhaSX;
+    @CsvBindByPosition(position = 3)
     private String loaiSanPham;
+    @CsvBindByPosition(position = 4)
     private int soLuong;
+    @CsvBindByPosition(position = 5)
     private String donViTinh;
+    @CsvBindByPosition(position = 6)
     private int giaNhap;
+    @CsvBindByPosition(position = 7)
     private int giaBan;
+    @CsvDate(value = "yyyy-MM-dd")
+    @CsvBindByPosition(position = 8)
     private LocalDate NSX;
+    @CsvDate(value = "yyyy-MM-dd")
+    @CsvBindByPosition(position = 9)
     private LocalDate HSD;
 
     public SanPham() {
     }
 
-    public SanPham(String maSanPham, String tenSanPham, String nhaSX, String loaiSanPham, int soLuong, String donViTinh, int giaNhap, LocalDate NSX, LocalDate HSD) {
-        this.maSanPham = maSanPham;
+    public SanPham(String tenSanPham, String nhaSX, String loaiSanPham, int soLuong, String donViTinh, int giaNhap, LocalDate NSX, LocalDate HSD) {
+        this.maSanPham = ++maSanPhamLast;
         this.tenSanPham = tenSanPham;
         this.nhaSX = nhaSX;
         this.loaiSanPham = loaiSanPham;
@@ -30,12 +45,12 @@ public class SanPham {
         this.HSD = HSD;
     }
 
-    public String getMaSanPham() {
-        return maSanPham;
+    public void setMaSanPhamLast(int maSanPhamLast) {
+        this.maSanPhamLast = maSanPhamLast;
     }
 
-    public void setMaSanPham(String maSanPham) {
-        this.maSanPham = maSanPham;
+    public int getMaSanPham() {
+        return maSanPham;
     }
 
     public String getTenSanPham() {
@@ -110,8 +125,23 @@ public class SanPham {
         this.HSD = HSD;
     }
 
+    public boolean testTrungTenSanPham(SanPham sp) {
+        if (sp.getTenSanPham().equals(this.getTenSanPham())) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean testTrungMaSP(SanPham sp) {
+        if (sp.getMaSanPham() == this.maSanPham) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "SanPham{" + "maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", nhaSX=" + nhaSX + ", loaiSanPham=" + loaiSanPham + ", soLuong=" + soLuong + ", donViTinh=" + donViTinh + ", giaNhap=" + giaNhap + ", giaBan=" + giaBan + ", NSX=" + NSX + ", HSD=" + HSD + '}';
     }
+
 }

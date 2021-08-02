@@ -29,8 +29,8 @@ public class HoaDonFrame extends javax.swing.JFrame {
      */
     public HoaDonFrame() {
         initComponents();
-        listHDBH = f.BanHangReadCSV(f.FileHoaDonBanHang);
-        listHDNH = f.NhapHangReadCSV(f.FileHoaDonNhapHang);
+        listHDBH = f.BanHangReadCSV();
+        listHDNH = f.NhapHangReadCSV();
         BanHangModel = (DefaultTableModel) BanHangTable.getModel();
         NhapHangModel = (DefaultTableModel) NhapHangTable.getModel();
     }
@@ -68,6 +68,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         FindField2 = new javax.swing.JTextField();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Hóa Đơn");
 
         jTabbedPane1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -174,7 +175,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
             .addGroup(HoaDonBanHangLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addGroup(HoaDonBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(FindField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -303,7 +304,7 @@ public class HoaDonFrame extends javax.swing.JFrame {
             .addGroup(HoaDonNhapHangLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                 .addGroup(HoaDonNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(FindField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -331,7 +332,9 @@ public class HoaDonFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jTabbedPane1))
         );
 
         pack();

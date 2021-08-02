@@ -25,18 +25,18 @@ import java.util.List;
  * @author admin
  */
 public class FileIOHoaDon {
-    
+
     private static final String currentDir = System.getProperty("user.dir");
     private static final String separator = File.separator;
-    private String StrHoaDonBanHang = currentDir + separator + "data" + separator + "HoaDonBanHang.csv";
-    private String StrHoaDonNhapHang = currentDir + separator + "data" + separator + "HoaDonNhapHang.csv";
+    private final String StrHoaDonBanHang = currentDir + separator + "data" + separator + "HoaDonBanHang.csv";
+    private final String StrHoaDonNhapHang = currentDir + separator + "data" + separator + "HoaDonNhapHang.csv";
     public File FileHoaDonBanHang = new File(StrHoaDonBanHang);
     public File FileHoaDonNhapHang = new File(StrHoaDonNhapHang);
 
-    public void BanHangWriteToCSV(File f, HoaDonBanHang hdbh) {
+    public void BanHangWriteToCSV(HoaDonBanHang hdbh) {
         FileWriter fw = null;
         try {
-            fw = new FileWriter(f);
+            fw = new FileWriter(FileHoaDonBanHang);
             CSVWriter csvWriter = new CSVWriter(fw,
                     CSVWriter.DEFAULT_SEPARATOR,
                     CSVWriter.NO_QUOTE_CHARACTER,
@@ -45,9 +45,9 @@ public class FileIOHoaDon {
             String[] header = {"Ma Hoa Don", "Ngay Lap", "San Pham", "Giam Gia", "Tong Tien"};
             csvWriter.writeNext(header);
             csvWriter.writeNext(new String[]{
-                hdbh.getMaHoaDon(),
+                String.valueOf(hdbh.getMaHoaDon()),
                 String.valueOf(hdbh.getNgayLap()),
-                hdbh.getMaSanPham(),
+                hdbh.getSanPham().toString(),
                 String.valueOf(hdbh.getGiamGia()),
                 String.valueOf(hdbh.getThanhTien())});
         } catch (IOException ex) {
@@ -61,11 +61,11 @@ public class FileIOHoaDon {
         }
     }
 
-    public List<HoaDonBanHang> BanHangReadCSV(File f) {
+    public List<HoaDonBanHang> BanHangReadCSV() {
         List<HoaDonBanHang> list = new ArrayList<>();
         FileReader fr = null;
         try {
-            fr = new FileReader(f);
+            fr = new FileReader(FileHoaDonBanHang);
             CsvToBean<HoaDonBanHang> csvToBean = new CsvToBeanBuilder<HoaDonBanHang>(fr)
                     .withType(HoaDonBanHang.class)
                     .withSkipLines(1)
@@ -85,26 +85,24 @@ public class FileIOHoaDon {
         return list;
     }
 
-    public void NhapHangWriteToCSV(HoaDonNhapHang hdnh, File f) {
+    public void NhapHangWriteToCSV(HoaDonNhapHang hdnh) {
         FileWriter fw = null;
         try {
-            fw = new FileWriter(f);
+            fw = new FileWriter(FileHoaDonNhapHang);
             CSVWriter csvWriter = new CSVWriter(fw,
                     CSVWriter.DEFAULT_SEPARATOR,
                     CSVWriter.NO_QUOTE_CHARACTER,
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                     CSVWriter.DEFAULT_LINE_END);
 
-            String[] header = {"STT", "Ma Hoa Don", "Ngay Lap", "San Pham", "Nha San Xuat", "Tong Tien"};
+            String[] header = {"Ma Hoa Don", "Ngay Lap", "San Pham", "Nha San Xuat", "Tong Tien"};
             csvWriter.writeNext(header);
-            
-                csvWriter.writeNext(new String[]{
-                    hdnh.getMaHoaDon(),
-                    String.valueOf(hdnh.getNgayLap()),
-                    hdnh.getMaSanPham(),
-                    String.valueOf(hdnh.getNhaSanXuat()),
-                    String.valueOf(hdnh.getThanhTien())});
-            
+            csvWriter.writeNext(new String[]{
+                String.valueOf(hdnh.getMaHoaDon()),
+                String.valueOf(hdnh.getNgayLap()),
+                String.valueOf(hdnh.getNhaSanXuat()),
+                hdnh.getSanPham().toString(),
+                String.valueOf(hdnh.getThanhTien())});
 
         } catch (IOException ex) {
             Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,11 +115,11 @@ public class FileIOHoaDon {
         }
     }
 
-    public List<HoaDonNhapHang> NhapHangReadCSV(File f) {
+    public List<HoaDonNhapHang> NhapHangReadCSV() {
         List<HoaDonNhapHang> list = new ArrayList<>();
         FileReader fr = null;
         try {
-            fr = new FileReader(f);
+            fr = new FileReader(StrHoaDonNhapHang);
             CsvToBean<HoaDonNhapHang> csvToBean = new CsvToBeanBuilder<HoaDonNhapHang>(fr)
                     .withType(HoaDonNhapHang.class)
                     .withSkipLines(1)

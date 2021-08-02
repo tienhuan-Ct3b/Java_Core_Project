@@ -5,24 +5,24 @@
  */
 package Objects;
 
+import com.opencsv.bean.CsvBindByPosition;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class HoaDonNhapHang extends HoaDon{
+public class HoaDonNhapHang extends HoaDon {
+
+    @CsvBindByPosition(position = 3)
     private String nhaSanXuat;
 
     public HoaDonNhapHang() {
     }
 
-    public HoaDonNhapHang(String nhaSanXuat) {
-        this.nhaSanXuat = nhaSanXuat;
-    }
-
-    public HoaDonNhapHang(String nhaSanXuat, String maHoaDon, LocalDate ngayLap, String maSanPham, int soLuong, int gia, long thanhTien) {
-        super(maHoaDon, ngayLap, maSanPham, soLuong, gia, thanhTien);
+    public HoaDonNhapHang(LocalDate ngayLap, List<Objects.SanPham> SanPham, String nhaSanXuat, long thanhTien) {
+        super(ngayLap, SanPham, thanhTien);
         this.nhaSanXuat = nhaSanXuat;
     }
 
@@ -33,13 +33,4 @@ public class HoaDonNhapHang extends HoaDon{
     public void setNhaSanXuat(String nhaSanXuat) {
         this.nhaSanXuat = nhaSanXuat;
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Hoa_Don_Nhap_Hang{nhaSanXuat=").append(nhaSanXuat);
-        sb.append('}');
-        return sb.toString();
-    }
-    
 }

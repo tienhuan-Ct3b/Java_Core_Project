@@ -6,9 +6,15 @@
 package GUI;
 
 import Objects.SanPham;
+import FileIOCSV.FileIOSanPham;
+import FileIOCSV.FileIOHoaDon;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -16,14 +22,23 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BanHangFrame extends javax.swing.JFrame {
     
+    FileIOHoaDon fileIOHoaDon = new FileIOHoaDon();
+    FileIOSanPham fileIOSanPham = new FileIOSanPham();
+    List<SanPham> listSanPham = fileIOSanPham.SanPhamReadCSV();
     List<SanPham> listTable = new ArrayList<>();
     DefaultTableModel model;
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    Date date = new Date();
+    Calendar cal = Calendar.getInstance();
+    String time = dateFormat.format(date);
+
     /**
      * Creates new form BanHangFrame
      */
     public BanHangFrame() {
         initComponents();
         model = (DefaultTableModel) SanPhamTable.getModel();
+        TimeField.setText(time);
     }
 
     /**
@@ -39,7 +54,7 @@ public class BanHangFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        TimeField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         maSanPhamField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -67,6 +82,7 @@ public class BanHangFrame extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Bán Hàng");
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -83,8 +99,8 @@ public class BanHangFrame extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Thời gian");
 
-        jTextField2.setEditable(false);
-        jTextField2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        TimeField.setEditable(false);
+        TimeField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("Mã Sản Phẩm");
@@ -253,7 +269,7 @@ public class BanHangFrame extends javax.swing.JFrame {
                         .addGap(85, 85, 85)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(TimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -292,7 +308,7 @@ public class BanHangFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(jLabel9)
                 .addGap(28, 28, 28)
@@ -350,6 +366,9 @@ public class BanHangFrame extends javax.swing.JFrame {
     private void AddProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddProductButtonActionPerformed
         // TODO add your handling code here:
         SanPham sp = new SanPham();
+        for (SanPham s : listSanPham){
+            
+        }
         listTable.add(sp);
     }//GEN-LAST:event_AddProductButtonActionPerformed
 
@@ -363,6 +382,7 @@ public class BanHangFrame extends javax.swing.JFrame {
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
@@ -417,6 +437,7 @@ public class BanHangFrame extends javax.swing.JFrame {
     private javax.swing.JTextField SoLuongField;
     private javax.swing.JTextField TenSanPhamField;
     private javax.swing.JTextField ThanhtienField;
+    private javax.swing.JTextField TimeField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -435,7 +456,6 @@ public class BanHangFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField maSanPhamField;
     // End of variables declaration//GEN-END:variables

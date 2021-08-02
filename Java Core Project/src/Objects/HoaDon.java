@@ -5,47 +5,46 @@
  */
 package Objects;
 
+import com.opencsv.bean.CsvBindByPosition;
+import com.opencsv.bean.CsvDate;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
  * @author Admin
  */
 public class HoaDon {
-    private String maHoaDon;
+    
+    private static int maHoaDonLast = 100000;
+    @CsvBindByPosition(position = 0)
+    private int maHoaDon;
+    @CsvDate(value = "yyyy-MM-dd")
+    @CsvBindByPosition(position = 1)
     private LocalDate ngayLap;
-    private String maSanPham;
-    private int soLuong;
-    private int gia;
+    @CsvBindByPosition(position = 2)
+    private List<SanPham> SanPham;
+    @CsvBindByPosition(position = 4)
     private long thanhTien;
 
     public HoaDon() {
     }
 
-    public HoaDon(String maHoaDon, LocalDate ngayLap, String maSanPham, int soLuong, int gia, long thanhTien) {
-        this.maHoaDon = maHoaDon;
+    public HoaDon(LocalDate ngayLap, List<SanPham> SanPham, long thanhTien) {
+        this.maHoaDon = ++maHoaDonLast;
         this.ngayLap = ngayLap;
-        this.maSanPham = maSanPham;
-        this.soLuong = soLuong;
-        this.gia = gia;
+        this.SanPham = SanPham;
         this.thanhTien = thanhTien;
     }
 
-    public long getThanhTien() {
-        return thanhTien;
+    public static void setMaHoaDonLast(int maHoaDonLast) {
+        HoaDon.maHoaDonLast = maHoaDonLast;
     }
 
-    public void setThanhTien(long thanhTien) {
-        this.thanhTien = thanhTien;
-    }
-
-    public String getMaHoaDon() {
+    public int getMaHoaDon() {
         return maHoaDon;
     }
-
-    public void setMaHoaDon(String maHoaDon) {
-        this.maHoaDon = maHoaDon;
-    }
+    
 
     public LocalDate getNgayLap() {
         return ngayLap;
@@ -55,34 +54,22 @@ public class HoaDon {
         this.ngayLap = ngayLap;
     }
 
-    public String getMaSanPham() {
-        return maSanPham;
+    public List<SanPham> getSanPham() {
+        return SanPham;
     }
 
-    public void setMaSanPham(String maSanPham) {
-        this.maSanPham = maSanPham;
+    public void setSanPham(List<SanPham> SanPham) {
+        this.SanPham = SanPham;
     }
 
-    public int getSoLuong() {
-        return soLuong;
+    public long getThanhTien() {
+        return thanhTien;
     }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
-
-    public int getGia() {
-        return gia;
-    }
-
-    public void setGia(int gia) {
-        this.gia = gia;
-    }
-
-    @Override
-    public String toString() {
-        return "HoaDon{" + "maHoaDon=" + maHoaDon + ", ngayLap=" + ngayLap + ", maSanPham=" + maSanPham + ", soLuong=" + soLuong + ", gia=" + gia + ", thanhTien=" + thanhTien ;
-    }
-
     
+    public boolean testTrungMaHD(HoaDon hd){
+        if(hd.getMaHoaDon() == this.getMaHoaDon()){
+            return true;
+        }
+        return false;    
+    }
 }
