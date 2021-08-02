@@ -15,8 +15,12 @@ public class QuanLySanPham {
     List<SanPham> listSanPham = fileIOSanPham.SanPhamReadCSV();
 
     public void ThemSP(SanPham s) {
+        int temp = listSanPham.size() - 1;
+        if (temp != -1) {
+            SanPham.setMaSanPhamLast(listSanPham.get(temp).getMaSanPham());
+        }
         listSanPham.add(s);
-        fileIOSanPham.SanPhamWriteToCSV(s);
+        fileIOSanPham.SanPhamWriteToCSV(listSanPham);
     }
 
     public void ThemSp(List<SanPham> list) {
@@ -35,9 +39,17 @@ public class QuanLySanPham {
                 listSanPham.get(i).setSoLuong(s.getSoLuong());
                 listSanPham.get(i).setDonViTinh(s.getDonViTinh());
                 listSanPham.get(i).setGiaNhap(s.getGiaNhap());
-                listSanPham.get(i).setGiaBan();
+                listSanPham.get(i).setGiaBan(s.getGiaNhap());
                 listSanPham.get(i).setNSX(s.getNSX());
                 listSanPham.get(i).setHSD(s.getHSD());
+            }
+        }
+    }
+
+    public void SuaSoLuongSp(SanPham s) {
+        for (int i = 0; i < listSanPham.size(); i++) {
+            if (listSanPham.get(i).getMaSanPham() == s.getMaSanPham()) {
+                
             }
         }
     }

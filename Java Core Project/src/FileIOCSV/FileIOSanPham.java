@@ -30,7 +30,7 @@ public class FileIOSanPham {
     private final String StrSanPham = currentDir + separator + "data" + separator + "SanPham.csv";
     public File FileSanPham = new File(StrSanPham);
 
-    public void SanPhamWriteToCSV(SanPham sp) {
+    public void SanPhamWriteToCSV(List<SanPham> list) {
         FileWriter fw = null;
         try {
             fw = new FileWriter(FileSanPham);
@@ -41,18 +41,20 @@ public class FileIOSanPham {
                     CSVWriter.DEFAULT_LINE_END);
             String[] header = {"Ma San Pham", "Ten San Pham", "Nha San Xuat", "Loai San Pham", "So Luong", "Don Vi Tinh", "Gia Nhap", "Gia Ban", "Ngay San Xuat", "Han Su Dung"};
             csvWriter.writeNext(header);
-            csvWriter.writeNext(new String[]{
-                String.valueOf(sp.getMaSanPham()),
-                sp.getTenSanPham(),
-                sp.getNhaSX(),
-                sp.getLoaiSanPham(),
-                String.valueOf(sp.getSoLuong()),
-                sp.getDonViTinh(),
-                String.valueOf(sp.getGiaNhap()),
-                String.valueOf(sp.getGiaNhap()),
-                String.valueOf(sp.getNSX()),
-                String.valueOf(sp.getHSD())
-            });
+            for (SanPham sp : list) {
+                csvWriter.writeNext(new String[]{
+                    String.valueOf(sp.getMaSanPham()),
+                    sp.getTenSanPham(),
+                    sp.getNhaSX(),
+                    sp.getLoaiSanPham(),
+                    String.valueOf(sp.getSoLuong()),
+                    sp.getDonViTinh(),
+                    String.valueOf(sp.getGiaNhap()),
+                    String.valueOf(sp.getGiaNhap()),
+                    String.valueOf(sp.getNSX()),
+                    String.valueOf(sp.getHSD())
+                });
+            }
         } catch (IOException ex) {
             Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

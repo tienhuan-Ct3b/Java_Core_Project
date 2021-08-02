@@ -33,7 +33,7 @@ public class FileIOHoaDon {
     public File FileHoaDonBanHang = new File(StrHoaDonBanHang);
     public File FileHoaDonNhapHang = new File(StrHoaDonNhapHang);
 
-    public void BanHangWriteToCSV(HoaDonBanHang hdbh) {
+    public void BanHangWriteToCSV(List<HoaDonBanHang> list) {
         FileWriter fw = null;
         try {
             fw = new FileWriter(FileHoaDonBanHang);
@@ -44,12 +44,14 @@ public class FileIOHoaDon {
                     CSVWriter.DEFAULT_LINE_END);
             String[] header = {"Ma Hoa Don", "Ngay Lap", "San Pham", "Giam Gia", "Tong Tien"};
             csvWriter.writeNext(header);
-            csvWriter.writeNext(new String[]{
-                String.valueOf(hdbh.getMaHoaDon()),
-                String.valueOf(hdbh.getNgayLap()),
-                hdbh.getSanPham().toString(),
-                String.valueOf(hdbh.getGiamGia()),
-                String.valueOf(hdbh.getThanhTien())});
+            for (HoaDonBanHang hdbh : list) {
+                csvWriter.writeNext(new String[]{
+                    String.valueOf(hdbh.getMaHoaDon()),
+                    String.valueOf(hdbh.getNgayLap()),
+                    hdbh.getSanPham().toString(),
+                    String.valueOf(hdbh.getGiamGia()),
+                    String.valueOf(hdbh.getThanhTien())});
+            }
         } catch (IOException ex) {
             Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -85,7 +87,7 @@ public class FileIOHoaDon {
         return list;
     }
 
-    public void NhapHangWriteToCSV(HoaDonNhapHang hdnh) {
+    public void NhapHangWriteToCSV(List<HoaDonNhapHang> list) {
         FileWriter fw = null;
         try {
             fw = new FileWriter(FileHoaDonNhapHang);
@@ -97,13 +99,14 @@ public class FileIOHoaDon {
 
             String[] header = {"Ma Hoa Don", "Ngay Lap", "San Pham", "Nha San Xuat", "Tong Tien"};
             csvWriter.writeNext(header);
-            csvWriter.writeNext(new String[]{
-                String.valueOf(hdnh.getMaHoaDon()),
-                String.valueOf(hdnh.getNgayLap()),
-                String.valueOf(hdnh.getNhaSanXuat()),
-                hdnh.getSanPham().toString(),
-                String.valueOf(hdnh.getThanhTien())});
-
+            for (HoaDonNhapHang hdnh : list) {
+                csvWriter.writeNext(new String[]{
+                    String.valueOf(hdnh.getMaHoaDon()),
+                    String.valueOf(hdnh.getNgayLap()),
+                    String.valueOf(hdnh.getNhaSanXuat()),
+                    hdnh.getSanPham().toString(),
+                    String.valueOf(hdnh.getThanhTien())});
+            }
         } catch (IOException ex) {
             Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

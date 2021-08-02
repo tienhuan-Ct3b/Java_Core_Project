@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class SanPham {
 
-    private int maSanPhamLast = 10000;
+    private static int maSanPhamLast = 10000;
     @CsvBindByPosition(position = 0)
     private int maSanPham;
     @CsvBindByPosition(position = 1)
@@ -45,8 +45,8 @@ public class SanPham {
         this.HSD = HSD;
     }
 
-    public void setMaSanPhamLast(int maSanPhamLast) {
-        this.maSanPhamLast = maSanPhamLast;
+    public static void setMaSanPhamLast(int maSanPhamLast) {
+        SanPham.maSanPhamLast = maSanPhamLast;
     }
 
     public int getMaSanPham() {
@@ -105,8 +105,8 @@ public class SanPham {
         return giaBan;
     }
 
-    public void setGiaBan() {
-        this.giaBan = (int) (getGiaNhap() * 1.2);
+    public void setGiaBan(int giaNhap) {
+        this.giaBan = (int) (giaNhap * 1.2);
     }
 
     public LocalDate getNSX() {

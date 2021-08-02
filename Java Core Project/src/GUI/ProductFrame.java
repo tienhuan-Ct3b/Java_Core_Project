@@ -479,7 +479,7 @@ public class ProductFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         quanLySanPham.ThemSP(setSanPham());
         selectedIndex = -1;
         Reset();
@@ -559,7 +559,7 @@ public class ProductFrame extends javax.swing.JFrame {
         s.setSoLuong(Integer.parseInt(QuantityField.getText()));
         s.setDonViTinh(DonViTinhField.getText());
         s.setGiaNhap(Integer.parseInt(PriceField.getText()));
-        s.setGiaBan();
+        s.setGiaBan(Integer.parseInt(PriceField.getText()));
         LocalDate NSX = LocalDate.parse(MFDField.getText(), DateTimeFormatter.ofPattern("dd-MM-YYYY"));
         LocalDate HSD = LocalDate.parse(EXPField.getText(), DateTimeFormatter.ofPattern("dd-MM-YYYY"));
         s.setNSX(NSX);
