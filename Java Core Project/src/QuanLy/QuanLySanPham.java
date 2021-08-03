@@ -10,19 +10,20 @@ import FileIOCSV.FileIOSanPham;
 import java.util.List;
 
 public class QuanLySanPham {
-
+    
     FileIOSanPham fileIOSanPham = new FileIOSanPham();
     List<SanPham> listSanPham = fileIOSanPham.SanPhamReadCSV();
-
+    
     public void ThemSP(SanPham s) {
         int temp = listSanPham.size() - 1;
         if (temp != -1) {
             SanPham.setMaSanPhamLast(listSanPham.get(temp).getMaSanPham());
         }
+        s.setGiaBan(s.getGiaNhap());
         listSanPham.add(s);
         fileIOSanPham.SanPhamWriteToCSV(listSanPham);
     }
-
+    
     public void ThemSp(List<SanPham> list) {
         list.forEach(s -> {
             ThemSP(s);
@@ -45,7 +46,7 @@ public class QuanLySanPham {
             }
         }
     }
-
+    
     public void SuaSoLuongSp(SanPham s) {
         for (int i = 0; i < listSanPham.size(); i++) {
             if (listSanPham.get(i).getMaSanPham() == s.getMaSanPham()) {
@@ -53,12 +54,17 @@ public class QuanLySanPham {
             }
         }
     }
-
-    public void XoaSP(SanPham s) {
-        for (int i = 0; i < listSanPham.size(); i++) {
-            if (listSanPham.get(i).getMaSanPham() == s.getMaSanPham()) {
-                listSanPham.remove(i);
-            }
-        }
+    
+    public void xoaSP(int i) {
+        listSanPham.remove(i);
+        fileIOSanPham.SanPhamWriteToCSV(listSanPham);
     }
+
+//    public void xoaSP(SanPham s) {
+//        for (int i = 0; i < listSanPham.size(); i++) {
+//            if (listSanPham.get(i).getMaSanPham() == s.getMaSanPham()) {
+//                listSanPham.remove(i);
+//            }
+//        }
+//    }
 }

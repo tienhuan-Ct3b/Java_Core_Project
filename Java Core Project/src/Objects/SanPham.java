@@ -31,6 +31,7 @@ public class SanPham {
     private LocalDate HSD;
 
     public SanPham() {
+        this.maSanPham = ++maSanPhamLast;
     }
 
     public SanPham(String tenSanPham, String nhaSX, String loaiSanPham, int soLuong, String donViTinh, int giaNhap, LocalDate NSX, LocalDate HSD) {

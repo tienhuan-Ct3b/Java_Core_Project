@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -15,7 +15,7 @@ import java.util.List;
  * @author Admin
  */
 public class HoaDon {
-    
+
     private static int maHoaDonLast = 100000;
     @CsvBindByPosition(position = 0)
     private int maHoaDon;
@@ -28,6 +28,7 @@ public class HoaDon {
     private long thanhTien;
 
     public HoaDon() {
+        this.maHoaDon = ++maHoaDonLast;
     }
 
     public HoaDon(LocalDate ngayLap, List<SanPham> SanPham, long thanhTien) {
@@ -44,7 +45,6 @@ public class HoaDon {
     public int getMaHoaDon() {
         return maHoaDon;
     }
-    
 
     public LocalDate getNgayLap() {
         return ngayLap;
@@ -65,11 +65,11 @@ public class HoaDon {
     public long getThanhTien() {
         return thanhTien;
     }
-    
-    public boolean testTrungMaHD(HoaDon hd){
-        if(hd.getMaHoaDon() == this.getMaHoaDon()){
+
+    public boolean testTrungMaHD(HoaDon hd) {
+        if (hd.getMaHoaDon() == this.getMaHoaDon()) {
             return true;
         }
-        return false;    
+        return false;
     }
 }

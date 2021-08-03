@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import QuanLy.QuanLySanPham;
@@ -16,30 +11,27 @@ import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
 import FileIOCSV.FileIOSanPham;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author admin
- */
 public class ProductFrame extends javax.swing.JFrame {
 
-    public List<SanPham> listSanPham = new ArrayList<>();
+    List<SanPham> listSanPham = new ArrayList<>();
 
     FileIOSanPham f = new FileIOSanPham();
     QuanLySanPham quanLySanPham = new QuanLySanPham();
     DefaultTableModel SanPhamModel;
     private int selectedIndex;
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public ProductFrame() {
         initComponents();
         listSanPham = f.SanPhamReadCSV();
         SanPhamModel = (DefaultTableModel) SanPhamTable.getModel();
         UpdateTable();
-        selectedIndex = SanPhamTable.getSelectedRow();
     }
 
     /**
@@ -114,12 +106,22 @@ public class ProductFrame extends javax.swing.JFrame {
 
         NameField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         NameField.setToolTipText("");
+        NameField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                NameFieldFocusLost(evt);
+            }
+        });
 
         NhaSXField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         NhaSXField.setToolTipText("");
 
         PriceField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         PriceField.setToolTipText("");
+        PriceField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                PriceFieldFocusLost(evt);
+            }
+        });
         PriceField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 PriceFieldKeyReleased(evt);
@@ -127,7 +129,13 @@ public class ProductFrame extends javax.swing.JFrame {
         });
 
         MFDField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        MFDField.setText("01/01/2000");
         MFDField.setToolTipText("");
+        MFDField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                MFDFieldFocusLost(evt);
+            }
+        });
         MFDField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 MFDFieldKeyReleased(evt);
@@ -150,7 +158,13 @@ public class ProductFrame extends javax.swing.JFrame {
         LoaiSPField.setToolTipText("");
 
         EXPField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        EXPField.setText("01/01/2000");
         EXPField.setToolTipText("");
+        EXPField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                EXPFieldFocusLost(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel8.setText("Giá Nhập");
@@ -160,6 +174,11 @@ public class ProductFrame extends javax.swing.JFrame {
 
         QuantityField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         QuantityField.setToolTipText("");
+        QuantityField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                QuantityFieldFocusLost(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel10.setText("Hạn Sử Dụng");
@@ -178,17 +197,18 @@ public class ProductFrame extends javax.swing.JFrame {
             new String [] {
                 "STT", "Mã Sản Phẩm", "Tên Sản Phẩm", "Loại", "Số Lượng", "Đơn Vị Tính", "Giá Nhập", "Giá Bán", "Nhà Sản Xuất", "Ngày Sản Xuất", "Hạn Sử dụng"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        ));
+        SanPhamTable.getTableHeader().setReorderingAllowed(false);
+        SanPhamTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SanPhamTableMouseClicked(evt);
             }
         });
-        SanPhamTable.setColumnSelectionAllowed(true);
-        SanPhamTable.getTableHeader().setReorderingAllowed(false);
+        SanPhamTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                SanPhamTableKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(SanPhamTable);
         SanPhamTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (SanPhamTable.getColumnModel().getColumnCount() > 0) {
@@ -267,7 +287,12 @@ public class ProductFrame extends javax.swing.JFrame {
 
         buttonGroup1.add(PriceRadioButton);
         PriceRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        PriceRadioButton.setText("Giá Nhập");
+        PriceRadioButton.setText("Giá");
+        PriceRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PriceRadioButtonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(MFDRadioButton);
         MFDRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -306,7 +331,9 @@ public class ProductFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(112, 112, 112))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -479,57 +506,56 @@ public class ProductFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
-        // TODO add your handling code here:        
-        quanLySanPham.ThemSP(setSanPham());
-        selectedIndex = -1;
+        quanLySanPham.ThemSP(new SanPham(NameField.getText(), NhaSXField.getText(), LoaiSPField.getText(), Integer.parseInt(QuantityField.getText()), DonViTinhField.getText(), Integer.parseInt(PriceField.getText()), LocalDate.parse(MFDField.getText(), dateTimeFormatter), LocalDate.parse(EXPField.getText(), dateTimeFormatter)));
+        UpdateTable();
         Reset();
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
-        // TODO add your handling code here:
+        selectedIndex = SanPhamTable.getSelectedRow();
         if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane, "Hãy chọn sản phẩm cần xóa!");
         } else {
-            quanLySanPham.XoaSP(setSanPham());
+            quanLySanPham.xoaSP(selectedIndex);
+            UpdateTable();
         }
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
     private void EditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButtonActionPerformed
+        selectedIndex = SanPhamTable.getSelectedRow();
         if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane, "Hãy chọn sản phẩm cần sửa!");
         } else {
-            quanLySanPham.SuaSP(setSanPham());
+//            quanLySanPham.SuaSP();
+            UpdateTable();
         }
     }//GEN-LAST:event_EditButtonActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_SaveButtonActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_ExitButtonActionPerformed
 
     private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
-        // TODO add your handling code here:
         Reset();
     }//GEN-LAST:event_ResetButtonActionPerformed
 
     private void QuatityRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuatityRadioButtonActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_QuatityRadioButtonActionPerformed
 
     private void EXPRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXPRadioButtonActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_EXPRadioButtonActionPerformed
 
     private void LocButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocButtonActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_LocButtonActionPerformed
 
     private void MFDFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MFDFieldKeyReleased
-        // TODO add your handling code here:
         MaskFormatter mf;
         JFormattedTextField dateFormat = null;
         try {
@@ -545,44 +571,159 @@ public class ProductFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_MFDFieldKeyReleased
 
     private void PriceFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PriceFieldKeyReleased
-        // TODO add your handling code here:
         NumberFormat nf = NumberFormat.getNumberInstance();
         nf.setGroupingUsed(true);
         nf.format(Double.parseDouble(PriceField.getText()));
     }//GEN-LAST:event_PriceFieldKeyReleased
 
-    public SanPham setSanPham() {
-        SanPham s = new SanPham();
-        s.setTenSanPham(NameField.getText());
-        s.setNhaSX(NhaSXField.getText());
-        s.setLoaiSanPham(LoaiSPField.getText());
-        s.setSoLuong(Integer.parseInt(QuantityField.getText()));
-        s.setDonViTinh(DonViTinhField.getText());
-        s.setGiaNhap(Integer.parseInt(PriceField.getText()));
-        s.setGiaBan(Integer.parseInt(PriceField.getText()));
-        LocalDate NSX = LocalDate.parse(MFDField.getText(), DateTimeFormatter.ofPattern("dd-MM-YYYY"));
-        LocalDate HSD = LocalDate.parse(EXPField.getText(), DateTimeFormatter.ofPattern("dd-MM-YYYY"));
-        s.setNSX(NSX);
-        s.setHSD(HSD);
-        return s;
-    }
+    private void SanPhamTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SanPhamTableMouseClicked
+        selectedIndex = SanPhamTable.getSelectedRow();
 
-    public void showInfo() {
-        if (selectedIndex > -1) {
-            SanPham s = listSanPham.get(selectedIndex);
-            IDField.setText(String.valueOf(s.getMaSanPham()));
-            NameField.setText(s.getTenSanPham());
-            NhaSXField.setText(s.getNhaSX());
-            LoaiSPField.setText(s.getLoaiSanPham());
-            QuantityField.setText(String.valueOf(s.getSoLuong()));
-            DonViTinhField.setText(s.getDonViTinh());
-            PriceField.setText(String.valueOf(s.getGiaNhap()));
-            MFDField.setText(String.valueOf(s.getNSX()));
-            EXPField.setText(String.valueOf(s.getHSD()));
+        displayDetails(selectedIndex);
+    }//GEN-LAST:event_SanPhamTableMouseClicked
+
+    private void SanPhamTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SanPhamTableKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            selectedIndex = SanPhamTable.getSelectedRow();
+            displayDetails(selectedIndex);
         }
-    }
+    }//GEN-LAST:event_SanPhamTableKeyReleased
 
-    public void Reset() {
+    private void NameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NameFieldFocusLost
+        if (NameField.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Tên không được để trống");
+        }
+    }//GEN-LAST:event_NameFieldFocusLost
+
+    private void QuantityFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_QuantityFieldFocusLost
+        if (QuantityField.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Số lượng không được để trống");
+        } else if (Integer.parseInt(QuantityField.getText()) <= 0) {
+            JOptionPane.showMessageDialog(rootPane, "Số lượng phải lớn hơn 0");
+        }
+    }//GEN-LAST:event_QuantityFieldFocusLost
+
+    private void PriceFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PriceFieldFocusLost
+        if (QuantityField.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Giá nhập không được để trống");
+        } else if (Integer.parseInt(QuantityField.getText()) <= 0) {
+            JOptionPane.showMessageDialog(rootPane, "Giá nhập phải lớn hơn 0");
+        }
+    }//GEN-LAST:event_PriceFieldFocusLost
+
+    private void MFDFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MFDFieldFocusLost
+        String reg = "^\\d{2}/\\d{2}/\\d{4}$";
+        if (!MFDField.getText().matches(reg)) {
+            JOptionPane.showMessageDialog(rootPane, "NSX sai định dạng");
+        } else {
+            String[] s = MFDField.getText().split("/");
+            int d = Integer.parseInt(s[0]);
+            int m = Integer.parseInt(s[1]);
+            int y = Integer.parseInt(s[2]);
+            if (m == 0 || m > 12) {
+                JOptionPane.showMessageDialog(rootPane, "Tháng không hợp lệ");
+            } else {
+                if (d <= 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                } else {
+                    switch (m) {
+                        case 1:
+                        case 3:
+                        case 5:
+                        case 7:
+                        case 8:
+                        case 10:
+                        case 12:
+                            if (d > 31) {
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                            }
+                            break;
+                        case 4:
+                        case 6:
+                        case 9:
+                        case 11:
+                            if (d > 30) {
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                            }
+                            break;
+                        case 2:
+                            if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) {
+                                if (d > 29) {
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                }
+                            } else {
+                                if (d > 28) {
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                }
+                            }
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_MFDFieldFocusLost
+
+    private void EXPFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EXPFieldFocusLost
+        String reg = "^\\d{2}/\\d{2}/\\d{4}$";
+        if (!MFDField.getText().matches(reg)) {
+            JOptionPane.showMessageDialog(rootPane, "HSD sai định dạng");
+        } else {
+            String[] s = MFDField.getText().split("/");
+            int d = Integer.parseInt(s[0]);
+            int m = Integer.parseInt(s[1]);
+            int y = Integer.parseInt(s[2]);
+            if (m == 0 || m > 12) {
+                JOptionPane.showMessageDialog(rootPane, "Tháng không hợp lệ");
+            } else {
+                if (d <= 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                } else {
+                    switch (m) {
+                        case 1:
+                        case 3:
+                        case 5:
+                        case 7:
+                        case 8:
+                        case 10:
+                        case 12:
+                            if (d > 31) {
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                            }
+                            break;
+                        case 4:
+                        case 6:
+                        case 9:
+                        case 11:
+                            if (d > 30) {
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                            }
+                            break;
+                        case 2:
+                            if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) {
+                                if (d > 29) {
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                }
+                            } else {
+                                if (d > 28) {
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                }
+                            }
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_EXPFieldFocusLost
+
+    private void PriceRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PriceRadioButtonActionPerformed
+
+    private void Reset() {
         IDField.setText("");
         NameField.setText("");
         NhaSXField.setText("");
@@ -596,14 +737,28 @@ public class ProductFrame extends javax.swing.JFrame {
 
     int i = 1;
 
-    public void UpdateTable() {
-        List<SanPham> list = f.SanPhamReadCSV();
-        for (SanPham s : list) {
-            SanPhamModel.addRow(new Object[]{i, s.getMaSanPham(), s.getTenSanPham(), s.getLoaiSanPham(), s.getSoLuong(), s.getDonViTinh(), s.getGiaNhap(), s.getGiaBan(), s.getNhaSX(), s.getNSX(), s.getHSD()});
+    private void UpdateTable() {
+        listSanPham = f.SanPhamReadCSV();
+        SanPhamModel.setRowCount(0);
+        for (SanPham s : listSanPham) {
+            SanPhamModel.addRow(new Object[]{i, s.getMaSanPham(), s.getTenSanPham(), s.getLoaiSanPham(), s.getSoLuong(), s.getDonViTinh(), s.getGiaNhap(), s.getGiaBan(), s.getNhaSX(), s.getNSX().format(dateTimeFormatter), s.getHSD().format(dateTimeFormatter)});
             i++;
+            SanPhamTable.scrollRectToVisible(SanPhamTable.getCellRect(SanPhamTable.getRowCount() - 1, 0, true));
         }
+    }
 
-        SanPhamTable.scrollRectToVisible(SanPhamTable.getCellRect(SanPhamTable.getRowCount() - 1, 0, true));
+    private void displayDetails(int selectedIndex) {
+        SanPham s = f.SanPhamReadCSV().get(selectedIndex);
+
+        IDField.setText(String.valueOf(s.getMaSanPham()));
+        NameField.setText(s.getTenSanPham());
+        NhaSXField.setText(s.getNhaSX());
+        LoaiSPField.setText(s.getLoaiSanPham());
+        QuantityField.setText(String.valueOf(s.getSoLuong()));
+        DonViTinhField.setText(s.getDonViTinh());
+        PriceField.setText(String.valueOf(s.getGiaNhap()));
+        MFDField.setText(s.getNSX().format(dateTimeFormatter));
+        EXPField.setText(s.getHSD().format(dateTimeFormatter));
     }
 
     /**

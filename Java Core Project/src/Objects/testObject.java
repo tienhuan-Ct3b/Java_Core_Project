@@ -10,6 +10,7 @@ import java.util.List;
 import FileIOCSV.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class testObject {
 
@@ -32,5 +33,8 @@ public class testObject {
 //            listSanPhams.remove(0);
 //        }
 //        fileIOSanPham.SanPhamWriteToCSV(listSanPhams);
+        List<HoaDon> listHoaDons = new ArrayList<>();
+        HoaDonBanHang hdbh = new HoaDonBanHang();
+        listHoaDons.add(hdbh);
     }
 }

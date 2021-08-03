@@ -50,7 +50,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         BanHangTable = new javax.swing.JTable();
         PrintButton1 = new javax.swing.JButton();
-        EditButton1 = new javax.swing.JButton();
         DeleteButton1 = new javax.swing.JButton();
         ExitButton1 = new javax.swing.JButton();
         SaveButton1 = new javax.swing.JButton();
@@ -61,7 +60,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         NhapHangTable = new javax.swing.JTable();
         PrintButton2 = new javax.swing.JButton();
-        EditButton2 = new javax.swing.JButton();
         DeleteButton2 = new javax.swing.JButton();
         SaveButton2 = new javax.swing.JButton();
         ExitButton2 = new javax.swing.JButton();
@@ -82,19 +80,24 @@ public class HoaDonFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "STT", "Mã Hóa Đơn", "Ngày Lập", "Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá", "Giảm Giá", "Thành Tiền"
+                "STT", "Mã Hóa Đơn", "Ngày Lập", "Giảm Giá", "Thành Tiền"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(BanHangTable);
         if (BanHangTable.getColumnModel().getColumnCount() > 0) {
             BanHangTable.getColumnModel().getColumn(0).setMinWidth(35);
             BanHangTable.getColumnModel().getColumn(0).setMaxWidth(35);
             BanHangTable.getColumnModel().getColumn(1).setMinWidth(80);
-            BanHangTable.getColumnModel().getColumn(3).setMinWidth(80);
-            BanHangTable.getColumnModel().getColumn(4).setMinWidth(150);
-            BanHangTable.getColumnModel().getColumn(5).setMinWidth(80);
-            BanHangTable.getColumnModel().getColumn(7).setMinWidth(50);
-            BanHangTable.getColumnModel().getColumn(7).setMaxWidth(80);
+            BanHangTable.getColumnModel().getColumn(3).setMinWidth(50);
+            BanHangTable.getColumnModel().getColumn(3).setMaxWidth(80);
         }
 
         PrintButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -102,14 +105,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
         PrintButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PrintButton1ActionPerformed(evt);
-            }
-        });
-
-        EditButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        EditButton1.setText("Sửa Hóa Đơn");
-        EditButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditButton1ActionPerformed(evt);
             }
         });
 
@@ -152,15 +147,13 @@ public class HoaDonFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(HoaDonBanHangLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(138, 138, 138)
                 .addComponent(PrintButton1)
-                .addGap(85, 85, 85)
-                .addComponent(EditButton1)
-                .addGap(82, 82, 82)
+                .addGap(114, 114, 114)
                 .addComponent(DeleteButton1)
-                .addGap(89, 89, 89)
-                .addComponent(SaveButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(SaveButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(131, 131, 131)
                 .addComponent(ExitButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(79, 79, 79))
             .addGroup(HoaDonBanHangLayout.createSequentialGroup()
@@ -184,7 +177,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addGroup(HoaDonBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HoaDonBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(EditButton1)
                         .addComponent(PrintButton1)
                         .addComponent(DeleteButton1))
                     .addGroup(HoaDonBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -210,9 +202,16 @@ public class HoaDonFrame extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(NhapHangTable);
@@ -231,14 +230,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
         PrintButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PrintButton2ActionPerformed(evt);
-            }
-        });
-
-        EditButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        EditButton2.setText("Sửa Hóa Đơn");
-        EditButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditButton2ActionPerformed(evt);
             }
         });
 
@@ -281,15 +272,13 @@ public class HoaDonFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane2)
                 .addContainerGap())
             .addGroup(HoaDonNhapHangLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(112, 112, 112)
                 .addComponent(PrintButton2)
-                .addGap(85, 85, 85)
-                .addComponent(EditButton2)
-                .addGap(82, 82, 82)
+                .addGap(127, 127, 127)
                 .addComponent(DeleteButton2)
-                .addGap(89, 89, 89)
-                .addComponent(SaveButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(SaveButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(147, 147, 147)
                 .addComponent(ExitButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73))
             .addGroup(HoaDonNhapHangLayout.createSequentialGroup()
@@ -313,7 +302,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(HoaDonNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HoaDonNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(EditButton2)
                         .addComponent(PrintButton2)
                         .addComponent(DeleteButton2))
                     .addGroup(HoaDonNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -353,10 +341,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_DeleteButton1ActionPerformed
 
-    private void EditButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EditButton1ActionPerformed
-
     private void PrintButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PrintButton1ActionPerformed
@@ -364,10 +348,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
     private void PrintButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PrintButton2ActionPerformed
-
-    private void EditButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EditButton2ActionPerformed
 
     private void DeleteButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButton2ActionPerformed
         // TODO add your handling code here:
@@ -424,8 +404,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
     private javax.swing.JTable BanHangTable;
     private javax.swing.JButton DeleteButton1;
     private javax.swing.JButton DeleteButton2;
-    private javax.swing.JButton EditButton1;
-    private javax.swing.JButton EditButton2;
     private javax.swing.JButton ExitButton1;
     private javax.swing.JButton ExitButton2;
     private javax.swing.JTextField FindField1;
