@@ -81,7 +81,7 @@ public class FileIOHoaDon {
             fw = new FileWriter(FileHoaDonNhapHang);
 
             Gson gson = new Gson();
-            Type classOfT = new TypeToken<HoaDonNhapHang>() {
+            Type classOfT = new TypeToken<List<HoaDonNhapHang>>() {
             }.getType();
 
             gson.toJson(list, classOfT, fw);
