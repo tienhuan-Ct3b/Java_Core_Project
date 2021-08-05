@@ -5,7 +5,6 @@
  */
 package FileIOCSV;
 
-import com.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,10 +12,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Objects.HoaDonBanHang;
 import Objects.HoaDonNhapHang;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,115 +28,90 @@ public class FileIOHoaDon {
 
     private static final String currentDir = System.getProperty("user.dir");
     private static final String separator = File.separator;
-    private final String StrHoaDonBanHang = currentDir + separator + "data" + separator + "HoaDonBanHang.csv";
-    private final String StrHoaDonNhapHang = currentDir + separator + "data" + separator + "HoaDonNhapHang.csv";
+    private final String StrHoaDonBanHang = currentDir + separator + "data" + separator + "HoaDonBanHang.json";
+    private final String StrHoaDonNhapHang = currentDir + separator + "data" + separator + "HoaDonNhapHang.json";
     public File FileHoaDonBanHang = new File(StrHoaDonBanHang);
     public File FileHoaDonNhapHang = new File(StrHoaDonNhapHang);
 
-    public void BanHangWriteToCSV(List<HoaDonBanHang> list) {
+    public void BanHangWriteToJson(List<HoaDonBanHang> list) {
         FileWriter fw = null;
         try {
             fw = new FileWriter(FileHoaDonBanHang);
-            CSVWriter csvWriter = new CSVWriter(fw,
-                    CSVWriter.DEFAULT_SEPARATOR,
-                    CSVWriter.NO_QUOTE_CHARACTER,
-                    CSVWriter.DEFAULT_ESCAPE_CHARACTER,
-                    CSVWriter.DEFAULT_LINE_END);
-            String[] header = {"Ma Hoa Don", "Ngay Lap", "San Pham", "Giam Gia", "Tong Tien"};
-            csvWriter.writeNext(header);
-            for (HoaDonBanHang hdbh : list) {
-                csvWriter.writeNext(new String[]{
-                    String.valueOf(hdbh.getMaHoaDon()),
-                    String.valueOf(hdbh.getNgayLap()),
-                    hdbh.getSanPham().toString(),
-                    String.valueOf(hdbh.getGiamGia()),
-                    String.valueOf(hdbh.getThanhTien())});
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
+
+            Gson gson = new Gson();
+            Type classOfT = new TypeToken<List<HoaDonBanHang>>() {
+            }.getType();
+
+            gson.toJson(list, classOfT, fw);
+
+        } catch (IOException ex) {;
         } finally {
             try {
                 fw.close();
             } catch (IOException ex) {
-                Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    public List<HoaDonBanHang> BanHangReadCSV() {
+    public List<HoaDonBanHang> BanHangReadJson() {
         List<HoaDonBanHang> list = new ArrayList<>();
         FileReader fr = null;
         try {
             fr = new FileReader(FileHoaDonBanHang);
-            CsvToBean<HoaDonBanHang> csvToBean = new CsvToBeanBuilder<HoaDonBanHang>(fr)
-                    .withType(HoaDonBanHang.class)
-                    .withSkipLines(1)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
+            Gson gson = new Gson();
 
-            list = csvToBean.parse();
+            Type classOfT = new TypeToken<List<HoaDonBanHang>>() {
+            }.getType();
+
+            list = gson.fromJson(fr, classOfT);
+
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 fr.close();
             } catch (IOException ex) {
-                Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return list;
     }
 
-    public void NhapHangWriteToCSV(List<HoaDonNhapHang> list) {
+    public void NhapHangWriteToJson(List<HoaDonNhapHang> list) {
         FileWriter fw = null;
         try {
             fw = new FileWriter(FileHoaDonNhapHang);
-            CSVWriter csvWriter = new CSVWriter(fw,
-                    CSVWriter.DEFAULT_SEPARATOR,
-                    CSVWriter.NO_QUOTE_CHARACTER,
-                    CSVWriter.DEFAULT_ESCAPE_CHARACTER,
-                    CSVWriter.DEFAULT_LINE_END);
 
-            String[] header = {"Ma Hoa Don", "Ngay Lap", "San Pham", "Nha San Xuat", "Tong Tien"};
-            csvWriter.writeNext(header);
-            for (HoaDonNhapHang hdnh : list) {
-                csvWriter.writeNext(new String[]{
-                    String.valueOf(hdnh.getMaHoaDon()),
-                    String.valueOf(hdnh.getNgayLap()),
-                    String.valueOf(hdnh.getNhaSanXuat()),
-                    hdnh.getSanPham().toString(),
-                    String.valueOf(hdnh.getThanhTien())});
-            }
+            Gson gson = new Gson();
+            Type classOfT = new TypeToken<HoaDonNhapHang>() {
+            }.getType();
+
+            gson.toJson(list, classOfT, fw);
         } catch (IOException ex) {
-            Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 fw.close();
             } catch (IOException ex) {
-                Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    public List<HoaDonNhapHang> NhapHangReadCSV() {
+    public List<HoaDonNhapHang> NhapHangReadJson() {
         List<HoaDonNhapHang> list = new ArrayList<>();
         FileReader fr = null;
         try {
             fr = new FileReader(StrHoaDonNhapHang);
-            CsvToBean<HoaDonNhapHang> csvToBean = new CsvToBeanBuilder<HoaDonNhapHang>(fr)
-                    .withType(HoaDonNhapHang.class)
-                    .withSkipLines(1)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
 
-            list = csvToBean.parse();
+            Gson gson = new Gson();
+
+            Type classOfT = new TypeToken<List<HoaDonNhapHang>>() {
+            }.getType();
+
+            list = gson.fromJson(fr, classOfT);
+
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 fr.close();
             } catch (IOException ex) {
-                Logger.getLogger(FileIOHoaDon.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return list;

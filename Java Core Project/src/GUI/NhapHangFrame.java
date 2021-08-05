@@ -8,33 +8,37 @@ package GUI;
 import Objects.SanPham;
 import FileIOCSV.FileIOHoaDon;
 import FileIOCSV.FileIOSanPham;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author admin
  */
 public class NhapHangFrame extends javax.swing.JFrame {
-    
+
     FileIOSanPham fileIOSanPham = new FileIOSanPham();
     FileIOHoaDon fileIOHoaDon = new FileIOHoaDon();
     public List<SanPham> listSanPhamNhap = new ArrayList<>();
-    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    Date date = new Date();
-    Calendar cal = Calendar.getInstance();
-    String time = dateFormat.format(date);
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DefaultTableModel TableModel;
+
+    int thanhTien = 0, Tong = 0;
 
     /**
      * Creates new form NhapHangFrame
      */
     public NhapHangFrame() {
         initComponents();
-        TimeField.setText(time);
+        TableModel = (DefaultTableModel) SanPhamNhapTable.getModel();
+        setTimeField();
     }
 
     /**
@@ -52,8 +56,6 @@ public class NhapHangFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         TimeField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        IDField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         NameField = new javax.swing.JTextField();
@@ -73,7 +75,7 @@ public class NhapHangFrame extends javax.swing.JFrame {
         EXPField = new javax.swing.JTextField();
         DonViTinhField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        SanPhamNhapTable = new javax.swing.JTable();
         AddProductButton = new javax.swing.JButton();
         AddButton = new javax.swing.JButton();
         PrintButton = new javax.swing.JButton();
@@ -107,12 +109,6 @@ public class NhapHangFrame extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Thông Tin Sản Phẩm");
 
-        IDField.setEditable(false);
-        IDField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel5.setText("Mã Sản Phẩm");
-
         jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setText("Tên Sản Phẩm");
 
@@ -122,11 +118,6 @@ public class NhapHangFrame extends javax.swing.JFrame {
         NameField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         NhaSXField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        NhaSXField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NhaSXFieldActionPerformed(evt);
-            }
-        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel8.setText("Số Lượng");
@@ -137,40 +128,20 @@ public class NhapHangFrame extends javax.swing.JFrame {
         QuantityField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         PriceField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        PriceField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PriceFieldActionPerformed(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel10.setText("Giá Nhập");
 
         SumOfPriceField.setEditable(false);
         SumOfPriceField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        SumOfPriceField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SumOfPriceFieldActionPerformed(evt);
-            }
-        });
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel11.setText("Loại Sản Phẩm");
 
         LoaiSPField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        LoaiSPField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoaiSPFieldActionPerformed(evt);
-            }
-        });
 
         MFDField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        MFDField.setText("00/00/0000");
-        MFDField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MFDFieldActionPerformed(evt);
-            }
-        });
+        MFDField.setText("01/01/2000");
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel12.setText("Thành Tiền");
@@ -182,48 +153,51 @@ public class NhapHangFrame extends javax.swing.JFrame {
         jLabel14.setText("Hạn Sử Dụng");
 
         EXPField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        EXPField.setText("00/00/0000");
-        EXPField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EXPFieldActionPerformed(evt);
-            }
-        });
+        EXPField.setText("01/01/2000");
 
         DonViTinhField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        DonViTinhField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DonViTinhFieldActionPerformed(evt);
-            }
-        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        SanPhamNhapTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "STT", "Mã Sản Phẩm", "Tên Sản Phẩm", "Nhà Sản Xuất", "Số Lượng", "Giá Nhập", "Thành Tiền"
+                "STT", "Tên Sản Phẩm", "Loại Sản Phẩm", "Số Lượng", "Giá Nhập", "Đơn Vị Tính", "NSX", "HSD", "Thành Tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, true
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(80);
+        SanPhamNhapTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SanPhamNhapTableMouseClicked(evt);
+            }
+        });
+        SanPhamNhapTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                SanPhamNhapTableKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(SanPhamNhapTable);
+        if (SanPhamNhapTable.getColumnModel().getColumnCount() > 0) {
+            SanPhamNhapTable.getColumnModel().getColumn(0).setMinWidth(50);
+            SanPhamNhapTable.getColumnModel().getColumn(0).setMaxWidth(50);
+            SanPhamNhapTable.getColumnModel().getColumn(3).setMinWidth(80);
+            SanPhamNhapTable.getColumnModel().getColumn(3).setMaxWidth(80);
         }
 
         AddProductButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         AddProductButton.setText("Thêm Sản Phẩm");
+        AddProductButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddProductButtonActionPerformed(evt);
+            }
+        });
 
         AddButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         AddButton.setText("Thêm Hóa Đơn");
@@ -286,49 +260,46 @@ public class NhapHangFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel5))
+                                        .addComponent(jLabel6)
                                         .addGap(26, 26, 26)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel11)
+                                            .addComponent(jLabel9))
                                         .addGap(24, 24, 24)
-                                        .addComponent(LoaiSPField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(DonViTinhField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(LoaiSPField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(109, 109, 109)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel8)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                                            .addComponent(QuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLabel10)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(PriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel9)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(DonViTinhField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(122, 122, 122)
-                                        .addComponent(AddProductButton)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel12)
+                                        .addGap(49, 49, 49)
+                                        .addComponent(SumOfPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel8)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                                                .addComponent(QuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel10)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(PriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(122, 122, 122)
+                                            .addComponent(AddProductButton))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel13)
-                                            .addComponent(jLabel14)
-                                            .addComponent(jLabel12))
+                                            .addComponent(jLabel14))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(EXPField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(MFDField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(ResetButton)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(SumOfPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(ResetButton))))
                         .addGap(32, 32, 32))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,17 +349,23 @@ public class NhapHangFrame extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addComponent(jLabel4)
                         .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(QuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(QuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(PriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(LoaiSPField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
@@ -398,15 +375,11 @@ public class NhapHangFrame extends javax.swing.JFrame {
                             .addComponent(jLabel14)
                             .addComponent(EXPField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel12)
-                        .addComponent(SumOfPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel11)
-                        .addComponent(LoaiSPField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(DonViTinhField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(SumOfPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DonViTinhField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AddProductButton)
@@ -430,45 +403,24 @@ public class NhapHangFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NhaSXFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NhaSXFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NhaSXFieldActionPerformed
-
-    private void PriceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PriceFieldActionPerformed
-
-    private void SumOfPriceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SumOfPriceFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SumOfPriceFieldActionPerformed
-
-    private void LoaiSPFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoaiSPFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LoaiSPFieldActionPerformed
-
-    private void MFDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MFDFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MFDFieldActionPerformed
-
-    private void EXPFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXPFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EXPFieldActionPerformed
-
-    private void DonViTinhFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DonViTinhFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DonViTinhFieldActionPerformed
-
     private void PrintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PrintButtonActionPerformed
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
-        // TODO add your handling code here:
 
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
-        // TODO add your handling code here:
+        while (!listSanPhamNhap.isEmpty()) {
+            listSanPhamNhap.remove(0);
+        }
+        i = 1;
+        thanhTien = 0;
+        Tong = 0;
+        Reset();
+        setTimeField();
+        updateTable();
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
@@ -478,20 +430,80 @@ public class NhapHangFrame extends javax.swing.JFrame {
 
     private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
         // TODO add your handling code here:
-        IDField.setText("");
+        Reset();
+    }//GEN-LAST:event_ResetButtonActionPerformed
+
+    private void AddProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddProductButtonActionPerformed
+        SanPham s = new SanPham();
+        s.setTenSanPham(NameField.getText());
+        s.setNhaSX(NhaSXField.getText());
+        s.setLoaiSanPham(LoaiSPField.getText());
+        s.setSoLuong(Integer.parseInt(QuantityField.getText()));
+        s.setDonViTinh(DonViTinhField.getText());
+        s.setGiaNhap(Integer.parseInt(PriceField.getText()));
+        s.setGiaBan(Integer.parseInt(PriceField.getText()));
+        LocalDate NSX = LocalDate.parse(MFDField.getText(), dateTimeFormatter);
+        LocalDate HSD = LocalDate.parse(EXPField.getText(), dateTimeFormatter);
+        s.setNSX(NSX);
+        s.setHSD(HSD);
+        listSanPhamNhap.add(s);
+        updateTable();
+        Reset();
+    }//GEN-LAST:event_AddProductButtonActionPerformed
+
+    private void SanPhamNhapTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SanPhamNhapTableMouseClicked
+        int selectedIndex = SanPhamNhapTable.getSelectedRow();
+
+        displayDetails(selectedIndex);
+    }//GEN-LAST:event_SanPhamNhapTableMouseClicked
+
+    private void SanPhamNhapTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SanPhamNhapTableKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            int selectedIndex = SanPhamNhapTable.getSelectedRow();
+            displayDetails(selectedIndex);
+        }
+    }//GEN-LAST:event_SanPhamNhapTableKeyReleased
+
+    private void Reset() {
         NameField.setText("");
         NhaSXField.setText("");
         LoaiSPField.setText("");
         QuantityField.setText("");
         DonViTinhField.setText("");
         PriceField.setText("");
-        MFDField.setText("00/00/0000");
-        EXPField.setText("00/00/0000");
-    }//GEN-LAST:event_ResetButtonActionPerformed
+        MFDField.setText("01/01/2000");
+        EXPField.setText("01/01/2000");
+    }
+
+    private void setTimeField() {
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String time = dateFormat.format(date);
+        TimeField.setText(time);
+    }
+
+    private void displayDetails(int selectedIndex) {
+        SanPham s = listSanPhamNhap.get(selectedIndex);
+
+        NameField.setText(s.getTenSanPham());
+        NhaSXField.setText(s.getNhaSX());
+        LoaiSPField.setText(s.getLoaiSanPham());
+        QuantityField.setText(String.valueOf(s.getSoLuong()));
+        DonViTinhField.setText(s.getDonViTinh());
+        PriceField.setText(String.valueOf(s.getGiaNhap()));
+        MFDField.setText(s.getNSX().format(dateTimeFormatter));
+        EXPField.setText(s.getHSD().format(dateTimeFormatter));
+    }
+
+    int i = 1;
 
     public void updateTable() {
-        SanPham s = listSanPhamNhap.get(listSanPhamNhap.size() - 1);
-
+        TableModel.setRowCount(0);
+        for (SanPham s : listSanPhamNhap) {
+            TableModel.addRow(new Object[]{i, s.getTenSanPham(), s.getLoaiSanPham(), s.getSoLuong(), s.getGiaNhap(), s.getDonViTinh(), s.getNSX(), s.getHSD(), (s.getSoLuong() * s.getGiaNhap())});
+            i++;
+            SanPhamNhapTable.scrollRectToVisible(SanPhamNhapTable.getCellRect(SanPhamNhapTable.getRowCount() - 1, 0, true));
+        }
     }
 
     /**
@@ -537,7 +549,6 @@ public class NhapHangFrame extends javax.swing.JFrame {
     private javax.swing.JTextField DonViTinhField;
     private javax.swing.JTextField EXPField;
     private javax.swing.JButton ExitButton;
-    private javax.swing.JTextField IDField;
     private javax.swing.JTextField LoaiSPField;
     private javax.swing.JTextField MFDField;
     private javax.swing.JTextField NameField;
@@ -546,6 +557,7 @@ public class NhapHangFrame extends javax.swing.JFrame {
     private javax.swing.JButton PrintButton;
     private javax.swing.JTextField QuantityField;
     private javax.swing.JButton ResetButton;
+    private javax.swing.JTable SanPhamNhapTable;
     private javax.swing.JTextField SumOfAllField;
     private javax.swing.JTextField SumOfPriceField;
     private javax.swing.JTextField TimeField;
@@ -559,13 +571,11 @@ public class NhapHangFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

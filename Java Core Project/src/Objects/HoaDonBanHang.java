@@ -5,17 +5,21 @@
  */
 package Objects;
 
-import com.opencsv.bean.CsvBindByPosition;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import java.time.LocalDate;
 import java.util.List;
+
 
 /**
  *
  * @author Admin
  */
+
 public class HoaDonBanHang extends HoaDon {
-    
-    @CsvBindByPosition(position = 3)
+
+    @SerializedName("giamGia")
+    @Expose
     private int giamGia;
 
     public HoaDonBanHang() {
@@ -33,4 +37,11 @@ public class HoaDonBanHang extends HoaDon {
     public void setGiamGia(int giamGia) {
         this.giamGia = giamGia;
     }
+
+    @Override
+    public String toString() {
+        return "HoaDonBanHang{" + "maHoaDon=" + super.getMaHoaDon() + ", ngayLap=" + super.getNgayLap() + ", SanPhams=" + super.getSanPham() + "giamGia=" + giamGia + ", thanhTien=" + super.getThanhTien() + '}';
+
+    }
+
 }

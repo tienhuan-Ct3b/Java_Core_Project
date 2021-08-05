@@ -1,37 +1,70 @@
 package Objects;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvDate;
 import java.time.LocalDate;
+import javax.annotation.processing.Generated;
 
+@Generated("jsonschema2pojo")
 public class SanPham {
 
     private static int maSanPhamLast = 10000;
+
+    @SerializedName("maSanPham")
+    @Expose
     @CsvBindByPosition(position = 0)
     private int maSanPham;
+
+    @SerializedName("tenSanPham")
+    @Expose
     @CsvBindByPosition(position = 1)
     private String tenSanPham;
+
+    @SerializedName("nhaSX")
+    @Expose
     @CsvBindByPosition(position = 2)
     private String nhaSX;
+
+    @SerializedName("loaiSanPham")
+    @Expose
     @CsvBindByPosition(position = 3)
     private String loaiSanPham;
+
+    @SerializedName("soLuong")
+    @Expose
     @CsvBindByPosition(position = 4)
     private int soLuong;
+
+    @SerializedName("donViTinh")
+    @Expose
     @CsvBindByPosition(position = 5)
     private String donViTinh;
+
+    @SerializedName("giaNhap")
+    @Expose
     @CsvBindByPosition(position = 6)
     private int giaNhap;
+
+    @SerializedName("giaBan")
+    @Expose
     @CsvBindByPosition(position = 7)
     private int giaBan;
+
+    @SerializedName("NSX")
+    @Expose
     @CsvDate(value = "yyyy-MM-dd")
     @CsvBindByPosition(position = 8)
     private LocalDate NSX;
+
+    @SerializedName("HSD")
+    @Expose
     @CsvDate(value = "yyyy-MM-dd")
     @CsvBindByPosition(position = 9)
     private LocalDate HSD;
 
     public SanPham() {
-        this.maSanPham = ++maSanPhamLast;
     }
 
     public SanPham(String tenSanPham, String nhaSX, String loaiSanPham, int soLuong, String donViTinh, int giaNhap, LocalDate NSX, LocalDate HSD) {
@@ -126,15 +159,8 @@ public class SanPham {
         this.HSD = HSD;
     }
 
-    public boolean testTrungTenSanPham(SanPham sp) {
-        if (sp.getTenSanPham().equals(this.getTenSanPham())) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean testTrungMaSP(SanPham sp) {
-        if (sp.getMaSanPham() == this.maSanPham) {
+    public boolean testTrungSanPham(SanPham sp) {
+        if (sp.getTenSanPham().equals(this.getTenSanPham()) && sp.getNSX().equals(this.getNSX())) {
             return true;
         }
         return false;

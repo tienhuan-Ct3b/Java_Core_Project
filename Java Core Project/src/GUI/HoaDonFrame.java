@@ -29,8 +29,8 @@ public class HoaDonFrame extends javax.swing.JFrame {
      */
     public HoaDonFrame() {
         initComponents();
-        listHDBH = f.BanHangReadCSV();
-        listHDNH = f.NhapHangReadCSV();
+        listHDBH = f.BanHangReadJson();
+        listHDNH = f.NhapHangReadJson();
         BanHangModel = (DefaultTableModel) BanHangTable.getModel();
         NhapHangModel = (DefaultTableModel) NhapHangTable.getModel();
     }

@@ -516,8 +516,13 @@ public class ProductFrame extends javax.swing.JFrame {
         if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane, "Hãy chọn sản phẩm cần xóa!");
         } else {
-            quanLySanPham.xoaSP(selectedIndex);
-            UpdateTable();
+            int result = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc muốn xóa sản phẩm này?", "Xác Nhận", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (result == JOptionPane.YES_OPTION) {
+                int maSP = Integer.parseInt(IDField.getText());
+                quanLySanPham.xoaSP(maSP);
+                UpdateTable();
+                Reset();
+            }
         }
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
@@ -526,8 +531,25 @@ public class ProductFrame extends javax.swing.JFrame {
         if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane, "Hãy chọn sản phẩm cần sửa!");
         } else {
-//            quanLySanPham.SuaSP();
-            UpdateTable();
+            int result = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc muốn sửa sản phẩm này?", "Xác Nhận", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (result == JOptionPane.YES_OPTION) {
+                SanPham s = new SanPham();
+                s.setTenSanPham(NameField.getText());
+                s.setNhaSX(NhaSXField.getText());
+                s.setLoaiSanPham(LoaiSPField.getText());
+                s.setSoLuong(Integer.parseInt(QuantityField.getText()));
+                s.setDonViTinh(DonViTinhField.getText());
+                s.setGiaNhap(Integer.parseInt(PriceField.getText()));
+                s.setGiaBan(Integer.parseInt(PriceField.getText()));
+                LocalDate NSX = LocalDate.parse(MFDField.getText(), dateTimeFormatter);
+                LocalDate HSD = LocalDate.parse(EXPField.getText(), dateTimeFormatter);
+                s.setNSX(NSX);
+                s.setHSD(HSD);
+                int maSP = Integer.parseInt(IDField.getText());
+                quanLySanPham.SuaSP(maSP, s);
+                UpdateTable();
+                Reset();
+            }
         }
     }//GEN-LAST:event_EditButtonActionPerformed
 
@@ -559,11 +581,11 @@ public class ProductFrame extends javax.swing.JFrame {
         MaskFormatter mf;
         JFormattedTextField dateFormat = null;
         try {
-            mf = new MaskFormatter("##-##-####");
+            mf = new MaskFormatter("##/##/####");
             mf.setPlaceholderCharacter('#');
             dateFormat = new JFormattedTextField(mf);
             dateFormat.setColumns(8);
-            MFDField.add(dateFormat);
+            this.add(dateFormat);
         } catch (ParseException ex) {
             Logger.getLogger(ProductFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -667,10 +689,10 @@ public class ProductFrame extends javax.swing.JFrame {
 
     private void EXPFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EXPFieldFocusLost
         String reg = "^\\d{2}/\\d{2}/\\d{4}$";
-        if (!MFDField.getText().matches(reg)) {
+        if (!EXPField.getText().matches(reg)) {
             JOptionPane.showMessageDialog(rootPane, "HSD sai định dạng");
         } else {
-            String[] s = MFDField.getText().split("/");
+            String[] s = EXPField.getText().split("/");
             int d = Integer.parseInt(s[0]);
             int m = Integer.parseInt(s[1]);
             int y = Integer.parseInt(s[2]);
@@ -731,8 +753,8 @@ public class ProductFrame extends javax.swing.JFrame {
         QuantityField.setText("");
         DonViTinhField.setText("");
         PriceField.setText("");
-        MFDField.setText("");
-        EXPField.setText("");
+        MFDField.setText("01/01/2000");
+        EXPField.setText("01/01/2000");
     }
 
     int i = 1;

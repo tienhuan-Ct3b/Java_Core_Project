@@ -5,10 +5,10 @@
  */
 package Objects;
 
-import com.opencsv.bean.CsvBindByPosition;
-import com.opencsv.bean.CsvDate;
 import java.time.LocalDate;
 import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
  *
@@ -17,24 +17,27 @@ import java.util.List;
 public class HoaDon {
 
     private static int maHoaDonLast = 100000;
-    @CsvBindByPosition(position = 0)
+    @SerializedName("maHoaDon")
+    @Expose
     private int maHoaDon;
-    @CsvDate(value = "yyyy-MM-dd")
-    @CsvBindByPosition(position = 1)
+    @SerializedName("ngayLap")
+    @Expose
     private LocalDate ngayLap;
-    @CsvBindByPosition(position = 2)
-    private List<SanPham> SanPham;
-    @CsvBindByPosition(position = 4)
+    @SerializedName("SanPhams")
+    @Expose
+    private List<SanPham> SanPhams;
+    @SerializedName("thanhTien")
+    @Expose
     private long thanhTien;
 
     public HoaDon() {
         this.maHoaDon = ++maHoaDonLast;
     }
 
-    public HoaDon(LocalDate ngayLap, List<SanPham> SanPham, long thanhTien) {
+    public HoaDon(LocalDate ngayLap, List<SanPham> SanPhams, long thanhTien) {
         this.maHoaDon = ++maHoaDonLast;
         this.ngayLap = ngayLap;
-        this.SanPham = SanPham;
+        this.SanPhams = SanPhams;
         this.thanhTien = thanhTien;
     }
 
@@ -55,11 +58,11 @@ public class HoaDon {
     }
 
     public List<SanPham> getSanPham() {
-        return SanPham;
+        return SanPhams;
     }
 
-    public void setSanPham(List<SanPham> SanPham) {
-        this.SanPham = SanPham;
+    public void setSanPham(List<SanPham> SanPhams) {
+        this.SanPhams = SanPhams;
     }
 
     public long getThanhTien() {
@@ -72,4 +75,10 @@ public class HoaDon {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "HoaDon{" + "maHoaDon=" + maHoaDon + ", ngayLap=" + ngayLap + ", SanPhams=" + SanPhams + ", thanhTien=" + thanhTien + '}';
+    }
+
 }

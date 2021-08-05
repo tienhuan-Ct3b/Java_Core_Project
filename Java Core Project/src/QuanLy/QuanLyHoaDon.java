@@ -12,8 +12,8 @@ import java.util.List;
 public class QuanLyHoaDon {
 
     FileIOHoaDon fileIOHoaDon = new FileIOHoaDon();
-    List<HoaDonBanHang> listHDBanHang = fileIOHoaDon.BanHangReadCSV();
-    List<HoaDonNhapHang> listHDNhapHang = fileIOHoaDon.NhapHangReadCSV();
+    List<HoaDonBanHang> listHDBanHang = fileIOHoaDon.BanHangReadJson();
+    List<HoaDonNhapHang> listHDNhapHang = fileIOHoaDon.NhapHangReadJson();
 
     private int check() {
         int lastMaHDBH = listHDBanHang.get(listHDBanHang.size() - 1).getMaHoaDon();
@@ -30,7 +30,7 @@ public class QuanLyHoaDon {
             HoaDon.setMaHoaDonLast(temp);
         }
         listHDBanHang.add(hdbh);
-        fileIOHoaDon.BanHangWriteToCSV(listHDBanHang);
+        fileIOHoaDon.BanHangWriteToJson(listHDBanHang);
     }
 
     public void ThemHDNH(HoaDonNhapHang hdnh) {
@@ -39,6 +39,6 @@ public class QuanLyHoaDon {
             HoaDon.setMaHoaDonLast(temp);
         }
         listHDNhapHang.add(hdnh);
-        fileIOHoaDon.NhapHangWriteToCSV(listHDNhapHang);
+        fileIOHoaDon.NhapHangWriteToJson(listHDNhapHang);
     }
 }
