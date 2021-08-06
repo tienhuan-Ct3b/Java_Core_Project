@@ -30,13 +30,11 @@ public class FileIOHoaDon {
     private static final String separator = File.separator;
     private final String StrHoaDonBanHang = currentDir + separator + "data" + separator + "HoaDonBanHang.json";
     private final String StrHoaDonNhapHang = currentDir + separator + "data" + separator + "HoaDonNhapHang.json";
-    public File FileHoaDonBanHang = new File(StrHoaDonBanHang);
-    public File FileHoaDonNhapHang = new File(StrHoaDonNhapHang);
 
     public void BanHangWriteToJson(List<HoaDonBanHang> list) {
         FileWriter fw = null;
         try {
-            fw = new FileWriter(FileHoaDonBanHang);
+            fw = new FileWriter(StrHoaDonBanHang);
 
             Gson gson = new Gson();
             Type classOfT = new TypeToken<List<HoaDonBanHang>>() {
@@ -57,7 +55,7 @@ public class FileIOHoaDon {
         List<HoaDonBanHang> list = new ArrayList<>();
         FileReader fr = null;
         try {
-            fr = new FileReader(FileHoaDonBanHang);
+            fr = new FileReader(StrHoaDonBanHang);
             Gson gson = new Gson();
 
             Type classOfT = new TypeToken<List<HoaDonBanHang>>() {
@@ -78,7 +76,7 @@ public class FileIOHoaDon {
     public void NhapHangWriteToJson(List<HoaDonNhapHang> list) {
         FileWriter fw = null;
         try {
-            fw = new FileWriter(FileHoaDonNhapHang);
+            fw = new FileWriter(StrHoaDonNhapHang);
 
             Gson gson = new Gson();
             Type classOfT = new TypeToken<List<HoaDonNhapHang>>() {

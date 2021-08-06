@@ -38,106 +38,104 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel2" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
-                                          <Component id="jLabel3" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
-                                          <Component id="jLabel4" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="IDField" pref="200" max="32767" attributes="0"/>
-                                          <Component id="NameField" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="NhaSXField" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                                      <Component id="jLabel11" min="-2" pref="102" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="SearchField" min="-2" pref="244" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jLabel2" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="IDField" pref="200" max="32767" attributes="0"/>
+                                  <Component id="NameField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="NhaSXField" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="SearchField" min="-2" pref="220" max="-2" attributes="0"/>
+                              <EmptySpace pref="84" max="32767" attributes="0"/>
+                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                               <Component id="AddButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
                               <Component id="DeleteButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel5" min="-2" pref="102" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="QuantityField" min="-2" pref="200" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel7" min="-2" pref="115" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="LoaiSPField" min="-2" pref="200" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel6" min="-2" pref="102" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="DonViTinhField" min="-2" pref="200" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel8" min="-2" pref="102" max="-2" attributes="0"/>
+                                      <Component id="jLabel9" min="-2" pref="102" max="-2" attributes="0"/>
+                                      <Component id="jLabel10" min="-2" pref="102" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="PriceField" max="32767" attributes="0"/>
+                                          <Component id="MFDField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="EXPField" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="IDRadioButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="QuantityRadioButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="PriceRadioButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="MFDRadioButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="EXPRadioButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="NSXRadioButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="TangRadioButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="GiamRadioButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
                               <Component id="EditButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="LocButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
-                              <Component id="SaveButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="209" max="-2" attributes="0"/>
                               <Component id="ExitButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel5" min="-2" pref="102" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="QuantityField" min="-2" pref="200" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel7" min="-2" pref="115" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="LoaiSPField" min="-2" pref="200" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel6" min="-2" pref="102" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                      <Component id="DonViTinhField" min="-2" pref="200" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel8" min="-2" pref="102" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" min="-2" pref="102" max="-2" attributes="0"/>
-                                  <Component id="jLabel10" min="-2" pref="102" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="PriceField" max="32767" attributes="0"/>
-                                      <Component id="MFDField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="EXPField" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="QuatityRadioButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="PriceRadioButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="MFDRadioButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="EXPRadioButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="NSXRadioButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jRadioButton2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -206,20 +204,28 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace pref="36" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="TangRadioButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="GiamRadioButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace pref="94" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="MFDRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="PriceRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="QuatityRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="QuantityRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="EXPRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="NSXRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="SearchField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="IDRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="165" max="-2" attributes="0"/>
@@ -227,19 +233,11 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="AddButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="EditButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="SaveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="DeleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ExitButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="LocButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -566,17 +564,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="SaveButton">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SaveButtonActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="ExitButton">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -607,7 +594,7 @@
         <Property name="text" type="java.lang.String" value="S&#x1eaf;p X&#x1ebf;p"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="QuatityRadioButton">
+    <Component class="javax.swing.JRadioButton" name="QuantityRadioButton">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup1"/>
@@ -615,11 +602,10 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
         </Property>
-        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="S&#x1ed1; L&#x1b0;&#x1ee3;ng"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="QuatityRadioButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="QuantityRadioButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="PriceRadioButton">
@@ -646,6 +632,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Ng&#xe0;y SX"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MFDRadioButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="EXPRadioButton">
       <Properties>
@@ -663,13 +652,19 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="NSXRadioButton">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup1"/>
+        </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Nh&#xe0; S&#x1ea3;n Xu&#x1ea5;t"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NSXRadioButtonActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+    <Component class="javax.swing.JRadioButton" name="GiamRadioButton">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup2"/>
@@ -679,8 +674,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Gi&#x1ea3;m D&#x1ea7;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GiamRadioButtonActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+    <Component class="javax.swing.JRadioButton" name="TangRadioButton">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup2"/>
@@ -691,6 +689,9 @@
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="T&#x103;ng D&#x1ea7;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TangRadioButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="LocButton">
       <Properties>
@@ -701,6 +702,21 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LocButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="IDRadioButton">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup1"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="14" style="0"/>
+        </Property>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="M&#xe3; S&#x1ea3;n Ph&#x1ea9;m"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="IDRadioButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

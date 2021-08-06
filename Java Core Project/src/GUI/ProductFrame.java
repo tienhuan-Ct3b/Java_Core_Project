@@ -2,6 +2,7 @@ package GUI;
 
 import QuanLy.QuanLySanPham;
 import Objects.SanPham;
+import SanPhamComparator.*;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -71,18 +72,18 @@ public class ProductFrame extends javax.swing.JFrame {
         AddButton = new javax.swing.JButton();
         DeleteButton = new javax.swing.JButton();
         EditButton = new javax.swing.JButton();
-        SaveButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
         ResetButton = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        QuatityRadioButton = new javax.swing.JRadioButton();
+        QuantityRadioButton = new javax.swing.JRadioButton();
         PriceRadioButton = new javax.swing.JRadioButton();
         MFDRadioButton = new javax.swing.JRadioButton();
         EXPRadioButton = new javax.swing.JRadioButton();
         NSXRadioButton = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        GiamRadioButton = new javax.swing.JRadioButton();
+        TangRadioButton = new javax.swing.JRadioButton();
         LocButton = new javax.swing.JButton();
+        IDRadioButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sản Phẩm");
@@ -248,14 +249,6 @@ public class ProductFrame extends javax.swing.JFrame {
             }
         });
 
-        SaveButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        SaveButton.setText("Lưu");
-        SaveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveButtonActionPerformed(evt);
-            }
-        });
-
         ExitButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         ExitButton.setText("Thoát");
         ExitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -275,13 +268,12 @@ public class ProductFrame extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel12.setText("Sắp Xếp");
 
-        buttonGroup1.add(QuatityRadioButton);
-        QuatityRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        QuatityRadioButton.setSelected(true);
-        QuatityRadioButton.setText("Số Lượng");
-        QuatityRadioButton.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(QuantityRadioButton);
+        QuantityRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        QuantityRadioButton.setText("Số Lượng");
+        QuantityRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                QuatityRadioButtonActionPerformed(evt);
+                QuantityRadioButtonActionPerformed(evt);
             }
         });
 
@@ -297,6 +289,11 @@ public class ProductFrame extends javax.swing.JFrame {
         buttonGroup1.add(MFDRadioButton);
         MFDRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         MFDRadioButton.setText("Ngày SX");
+        MFDRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MFDRadioButtonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(EXPRadioButton);
         EXPRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -307,23 +304,49 @@ public class ProductFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(NSXRadioButton);
         NSXRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         NSXRadioButton.setText("Nhà Sản Xuất");
+        NSXRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NSXRadioButtonActionPerformed(evt);
+            }
+        });
 
-        buttonGroup2.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jRadioButton1.setText("Giảm Dần");
+        buttonGroup2.add(GiamRadioButton);
+        GiamRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        GiamRadioButton.setText("Giảm Dần");
+        GiamRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GiamRadioButtonActionPerformed(evt);
+            }
+        });
 
-        buttonGroup2.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jRadioButton2.setSelected(true);
-        jRadioButton2.setText("Tăng Dần");
+        buttonGroup2.add(TangRadioButton);
+        TangRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        TangRadioButton.setSelected(true);
+        TangRadioButton.setText("Tăng Dần");
+        TangRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TangRadioButtonActionPerformed(evt);
+            }
+        });
 
         LocButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         LocButton.setText("Lọc");
         LocButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LocButtonActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(IDRadioButton);
+        IDRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        IDRadioButton.setSelected(true);
+        IDRadioButton.setText("Mã Sản Phẩm");
+        IDRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDRadioButtonActionPerformed(evt);
             }
         });
 
@@ -339,87 +362,86 @@ public class ProductFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(74, 74, 74)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(74, 74, 74)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(38, 38, 38)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(IDField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                            .addComponent(NameField)
-                                            .addComponent(NhaSXField)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(47, 47, 47)
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 17, Short.MAX_VALUE))
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(38, 38, 38)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(IDField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(NameField)
+                                    .addComponent(NhaSXField))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(112, 112, 112)
+                                .addGap(47, 47, 47)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                                .addComponent(jLabel12)
+                                .addGap(39, 39, 39))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(89, 89, 89)
                                 .addComponent(AddButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(208, 208, 208)
                                 .addComponent(DeleteButton)
-                                .addGap(56, 56, 56)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(11, 11, 11)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(QuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(LoaiSPField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(31, 31, 31)
+                                            .addComponent(DonViTinhField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(59, 59, 59)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(31, 31, 31)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(ResetButton)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(PriceField)
+                                            .addComponent(MFDField)
+                                            .addComponent(EXPField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(70, 70, 70))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(IDRadioButton)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(QuantityRadioButton)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(PriceRadioButton)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(MFDRadioButton)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(EXPRadioButton)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(NSXRadioButton)
+                                    .addGap(37, 37, 37)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(TangRadioButton)
+                                        .addComponent(GiamRadioButton))
+                                    .addGap(22, 22, 22)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
+                                .addGap(124, 124, 124)
                                 .addComponent(EditButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(LocButton)
-                                .addGap(150, 150, 150)
-                                .addComponent(SaveButton)
-                                .addGap(137, 137, 137)
+                                .addGap(209, 209, 209)
                                 .addComponent(ExitButton)
-                                .addGap(44, 44, 44))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(QuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(LoaiSPField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(DonViTinhField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(59, 59, 59)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ResetButton)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(PriceField)
-                                        .addComponent(MFDField)
-                                        .addComponent(EXPField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(70, 70, 70))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(jLabel12)
-                                .addGap(18, 18, 18)
-                                .addComponent(QuatityRadioButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(PriceRadioButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(MFDRadioButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(EXPRadioButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(NSXRadioButton)
-                                .addGap(37, 37, 37)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton2)
-                                    .addComponent(jRadioButton1))
-                                .addGap(22, 22, 22))))
+                                .addGap(44, 44, 44))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1215, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -468,37 +490,37 @@ public class ProductFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(EXPField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(33, 33, 33)
-                .addComponent(ResetButton)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addGap(33, 33, 33)
+                        .addComponent(ResetButton)
+                        .addGap(23, 23, 23)
+                        .addComponent(TangRadioButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(GiamRadioButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
                             .addComponent(MFDRadioButton)
                             .addComponent(PriceRadioButton)
-                            .addComponent(QuatityRadioButton)
+                            .addComponent(QuantityRadioButton)
                             .addComponent(EXPRadioButton)
                             .addComponent(NSXRadioButton)
                             .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(IDRadioButton)
+                            .addComponent(jLabel12))
                         .addGap(38, 38, 38)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(AddButton)
                             .addComponent(EditButton)
-                            .addComponent(SaveButton)
                             .addComponent(DeleteButton)
                             .addComponent(ExitButton)
                             .addComponent(LocButton))
-                        .addGap(45, 45, 45))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(45, 45, 45))))
         );
 
         pack();
@@ -506,7 +528,14 @@ public class ProductFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
-        quanLySanPham.ThemSP(new SanPham(NameField.getText(), NhaSXField.getText(), LoaiSPField.getText(), Integer.parseInt(QuantityField.getText()), DonViTinhField.getText(), Integer.parseInt(PriceField.getText()), LocalDate.parse(MFDField.getText(), dateTimeFormatter), LocalDate.parse(EXPField.getText(), dateTimeFormatter)));
+        quanLySanPham.ThemSP(new SanPham(NameField.getText(),
+                NhaSXField.getText(),
+                LoaiSPField.getText(),
+                Integer.parseInt(QuantityField.getText()),
+                DonViTinhField.getText(),
+                Integer.parseInt(PriceField.getText()),
+                LocalDate.parse(MFDField.getText(), dateTimeFormatter),
+                LocalDate.parse(EXPField.getText(), dateTimeFormatter)));
         UpdateTable();
         Reset();
     }//GEN-LAST:event_AddButtonActionPerformed
@@ -516,7 +545,12 @@ public class ProductFrame extends javax.swing.JFrame {
         if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane, "Hãy chọn sản phẩm cần xóa!");
         } else {
-            int result = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc muốn xóa sản phẩm này?", "Xác Nhận", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(rootPane,
+                    "Bạn có chắc muốn xóa sản phẩm này?",
+                    "Xác Nhận",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
             if (result == JOptionPane.YES_OPTION) {
                 int maSP = Integer.parseInt(IDField.getText());
                 quanLySanPham.xoaSP(maSP);
@@ -531,7 +565,12 @@ public class ProductFrame extends javax.swing.JFrame {
         if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane, "Hãy chọn sản phẩm cần sửa!");
         } else {
-            int result = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc muốn sửa sản phẩm này?", "Xác Nhận", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(rootPane,
+                    "Bạn có chắc muốn sửa sản phẩm này?",
+                    "Xác Nhận",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
             if (result == JOptionPane.YES_OPTION) {
                 SanPham s = new SanPham();
                 s.setTenSanPham(NameField.getText());
@@ -553,10 +592,6 @@ public class ProductFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_EditButtonActionPerformed
 
-    private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
-
-    }//GEN-LAST:event_SaveButtonActionPerformed
-
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_ExitButtonActionPerformed
@@ -565,16 +600,9 @@ public class ProductFrame extends javax.swing.JFrame {
         Reset();
     }//GEN-LAST:event_ResetButtonActionPerformed
 
-    private void QuatityRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuatityRadioButtonActionPerformed
-
-    }//GEN-LAST:event_QuatityRadioButtonActionPerformed
-
-    private void EXPRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXPRadioButtonActionPerformed
-
-    }//GEN-LAST:event_EXPRadioButtonActionPerformed
-
     private void LocButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocButtonActionPerformed
-
+        LocFrame locFrame = new LocFrame(this, rootPaneCheckingEnabled);
+        locFrame.setVisible(true);
     }//GEN-LAST:event_LocButtonActionPerformed
 
     private void MFDFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MFDFieldKeyReleased
@@ -613,40 +641,48 @@ public class ProductFrame extends javax.swing.JFrame {
 
     private void NameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NameFieldFocusLost
         if (NameField.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Tên không được để trống");
+            JOptionPane.showMessageDialog(rootPane, "Tên không được để trống!");
         }
     }//GEN-LAST:event_NameFieldFocusLost
 
     private void QuantityFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_QuantityFieldFocusLost
         if (QuantityField.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Số lượng không được để trống");
+            JOptionPane.showMessageDialog(rootPane, "Số lượng không được để trống!");
         } else if (Integer.parseInt(QuantityField.getText()) <= 0) {
-            JOptionPane.showMessageDialog(rootPane, "Số lượng phải lớn hơn 0");
+            JOptionPane.showMessageDialog(rootPane, "Số lượng phải lớn hơn 0!");
         }
     }//GEN-LAST:event_QuantityFieldFocusLost
 
     private void PriceFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PriceFieldFocusLost
         if (QuantityField.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Giá nhập không được để trống");
-        } else if (Integer.parseInt(QuantityField.getText()) <= 0) {
-            JOptionPane.showMessageDialog(rootPane, "Giá nhập phải lớn hơn 0");
+            JOptionPane.showMessageDialog(rootPane, "Giá nhập không được để trống!");
+        } else {
+            try {
+                int soLuong = Integer.parseInt(QuantityField.getText());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "Số Lượng không được chứa kí tự khác!");
+            }
+            if(Integer.parseInt(QuantityField.getText()) <= 0){
+                JOptionPane.showMessageDialog(rootPane, "Số lượng phải lớn hơn không!");
+            }
+                
         }
     }//GEN-LAST:event_PriceFieldFocusLost
 
     private void MFDFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MFDFieldFocusLost
         String reg = "^\\d{2}/\\d{2}/\\d{4}$";
         if (!MFDField.getText().matches(reg)) {
-            JOptionPane.showMessageDialog(rootPane, "NSX sai định dạng");
+            JOptionPane.showMessageDialog(rootPane, "NSX sai định dạng!");
         } else {
             String[] s = MFDField.getText().split("/");
             int d = Integer.parseInt(s[0]);
             int m = Integer.parseInt(s[1]);
             int y = Integer.parseInt(s[2]);
             if (m == 0 || m > 12) {
-                JOptionPane.showMessageDialog(rootPane, "Tháng không hợp lệ");
+                JOptionPane.showMessageDialog(rootPane, "Tháng không hợp lệ!");
             } else {
                 if (d <= 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                 } else {
                     switch (m) {
                         case 1:
@@ -657,7 +693,7 @@ public class ProductFrame extends javax.swing.JFrame {
                         case 10:
                         case 12:
                             if (d > 31) {
-                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                             }
                             break;
                         case 4:
@@ -665,22 +701,22 @@ public class ProductFrame extends javax.swing.JFrame {
                         case 9:
                         case 11:
                             if (d > 30) {
-                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                             }
                             break;
                         case 2:
                             if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) {
                                 if (d > 29) {
-                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                                 }
                             } else {
                                 if (d > 28) {
-                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                                 }
                             }
                             break;
                         default:
-                            JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                            JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                     }
                 }
             }
@@ -690,17 +726,17 @@ public class ProductFrame extends javax.swing.JFrame {
     private void EXPFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EXPFieldFocusLost
         String reg = "^\\d{2}/\\d{2}/\\d{4}$";
         if (!EXPField.getText().matches(reg)) {
-            JOptionPane.showMessageDialog(rootPane, "HSD sai định dạng");
+            JOptionPane.showMessageDialog(rootPane, "HSD sai định dạng!");
         } else {
             String[] s = EXPField.getText().split("/");
             int d = Integer.parseInt(s[0]);
             int m = Integer.parseInt(s[1]);
             int y = Integer.parseInt(s[2]);
             if (m == 0 || m > 12) {
-                JOptionPane.showMessageDialog(rootPane, "Tháng không hợp lệ");
+                JOptionPane.showMessageDialog(rootPane, "Tháng không hợp lệ!");
             } else {
                 if (d <= 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                 } else {
                     switch (m) {
                         case 1:
@@ -711,7 +747,7 @@ public class ProductFrame extends javax.swing.JFrame {
                         case 10:
                         case 12:
                             if (d > 31) {
-                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                             }
                             break;
                         case 4:
@@ -719,31 +755,75 @@ public class ProductFrame extends javax.swing.JFrame {
                         case 9:
                         case 11:
                             if (d > 30) {
-                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                             }
                             break;
                         case 2:
                             if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) {
                                 if (d > 29) {
-                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                                 }
                             } else {
                                 if (d > 28) {
-                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                                 }
                             }
                             break;
                         default:
-                            JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ");
+                            JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
                     }
                 }
             }
         }
     }//GEN-LAST:event_EXPFieldFocusLost
 
+    private void IDRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDRadioButtonActionPerformed
+        if (IDRadioButton.isSelected()) {
+            UpdateTable();
+        }
+    }//GEN-LAST:event_IDRadioButtonActionPerformed
+
+    private void QuantityRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuantityRadioButtonActionPerformed
+        if (QuantityRadioButton.isSelected()) {
+            UpdateTable();
+        }
+    }//GEN-LAST:event_QuantityRadioButtonActionPerformed
+
     private void PriceRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceRadioButtonActionPerformed
-        // TODO add your handling code here:
+        if (PriceRadioButton.isSelected()) {
+            UpdateTable();
+        }
     }//GEN-LAST:event_PriceRadioButtonActionPerformed
+
+    private void MFDRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MFDRadioButtonActionPerformed
+        if (MFDRadioButton.isSelected()) {
+            UpdateTable();
+        }
+    }//GEN-LAST:event_MFDRadioButtonActionPerformed
+
+    private void EXPRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXPRadioButtonActionPerformed
+        if (EXPRadioButton.isSelected()) {
+            UpdateTable();
+        }
+    }//GEN-LAST:event_EXPRadioButtonActionPerformed
+
+    private void NSXRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NSXRadioButtonActionPerformed
+        if (NSXRadioButton.isSelected()) {
+            UpdateTable();
+        }
+    }//GEN-LAST:event_NSXRadioButtonActionPerformed
+
+    private void TangRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TangRadioButtonActionPerformed
+        if (TangRadioButton.isSelected()) {
+            UpdateTable();
+        }
+    }//GEN-LAST:event_TangRadioButtonActionPerformed
+
+    private void GiamRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GiamRadioButtonActionPerformed
+        if (GiamRadioButton.isSelected()) {
+            UpdateTable();
+        }
+    }//GEN-LAST:event_GiamRadioButtonActionPerformed
 
     private void Reset() {
         IDField.setText("");
@@ -761,11 +841,60 @@ public class ProductFrame extends javax.swing.JFrame {
 
     private void UpdateTable() {
         listSanPham = f.SanPhamReadCSV();
+
+        if (IDRadioButton.isSelected()) {
+            if (TangRadioButton.isSelected()) {
+                listSanPham.sort(new MaSPTangComparator());
+            } else if (GiamRadioButton.isSelected()) {
+                listSanPham.sort(new MaSPGiamComparator());
+            }
+        } else if (QuantityRadioButton.isSelected()) {
+            if (TangRadioButton.isSelected()) {
+                listSanPham.sort(new SoLuongSpTangComparator());
+            } else if (GiamRadioButton.isSelected()) {
+                listSanPham.sort(new SoLuongSPGiamComparator());
+            }
+        } else if (PriceRadioButton.isSelected()) {
+            if (TangRadioButton.isSelected()) {
+                listSanPham.sort(new GiaNhapTangComparator());
+            } else if (GiamRadioButton.isSelected()) {
+                listSanPham.sort(new GiaNhapGiamComparator());
+            }
+        } else if (MFDRadioButton.isSelected()) {
+            if (TangRadioButton.isSelected()) {
+                listSanPham.sort(new NSXTangComparator());
+            } else if (GiamRadioButton.isSelected()) {
+                listSanPham.sort(new NSXGiamComparator());
+            }
+        } else if (EXPRadioButton.isSelected()) {
+            if (TangRadioButton.isSelected()) {
+                listSanPham.sort(new HSDTangComparator());
+            } else if (GiamRadioButton.isSelected()) {
+                listSanPham.sort(new HSDGiamComparator());
+            }
+        } else if (NSXRadioButton.isSelected()) {
+            if (TangRadioButton.isSelected()) {
+                listSanPham.sort(new NhaSXTangComparator());
+            } else if (GiamRadioButton.isSelected()) {
+                listSanPham.sort(new NSXGiamComparator());
+            }
+        }
         SanPhamModel.setRowCount(0);
         for (SanPham s : listSanPham) {
-            SanPhamModel.addRow(new Object[]{i, s.getMaSanPham(), s.getTenSanPham(), s.getLoaiSanPham(), s.getSoLuong(), s.getDonViTinh(), s.getGiaNhap(), s.getGiaBan(), s.getNhaSX(), s.getNSX().format(dateTimeFormatter), s.getHSD().format(dateTimeFormatter)});
+            SanPhamModel.addRow(new Object[]{i,
+                s.getMaSanPham(),
+                s.getTenSanPham(),
+                s.getLoaiSanPham(),
+                s.getSoLuong(),
+                s.getDonViTinh(),
+                s.getGiaNhap(),
+                s.getGiaBan(),
+                s.getNhaSX(),
+                s.getNSX().format(dateTimeFormatter),
+                s.getHSD().format(dateTimeFormatter)});
             i++;
             SanPhamTable.scrollRectToVisible(SanPhamTable.getCellRect(SanPhamTable.getRowCount() - 1, 0, true));
+
         }
     }
 
@@ -827,7 +956,9 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton EXPRadioButton;
     private javax.swing.JButton EditButton;
     private javax.swing.JButton ExitButton;
+    private javax.swing.JRadioButton GiamRadioButton;
     private javax.swing.JTextField IDField;
+    private javax.swing.JRadioButton IDRadioButton;
     private javax.swing.JTextField LoaiSPField;
     private javax.swing.JButton LocButton;
     private javax.swing.JTextField MFDField;
@@ -838,11 +969,11 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JTextField PriceField;
     private javax.swing.JRadioButton PriceRadioButton;
     private javax.swing.JTextField QuantityField;
-    private javax.swing.JRadioButton QuatityRadioButton;
+    private javax.swing.JRadioButton QuantityRadioButton;
     private javax.swing.JButton ResetButton;
     private javax.swing.JTable SanPhamTable;
-    private javax.swing.JButton SaveButton;
     private javax.swing.JTextField SearchField;
+    private javax.swing.JRadioButton TangRadioButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel1;
@@ -857,8 +988,6 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 

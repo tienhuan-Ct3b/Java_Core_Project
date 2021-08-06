@@ -12,7 +12,7 @@ import java.util.Comparator;
  *
  * @author admin
  */
-public class HDSGiamComparator implements Comparator<SanPham> {
+public class HSDGiamComparator implements Comparator<SanPham> {
 
     @Override
     public int compare(SanPham s1, SanPham s2) {

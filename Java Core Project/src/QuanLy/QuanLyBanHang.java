@@ -31,7 +31,7 @@ public class QuanLyBanHang {
             for (j = 0; j < listSanPhams.size(); j++) {
                 SanPham s2 = listSanPhams.get(j);
                 if (s1.getMaSanPham() == s2.getMaSanPham()) {
-                    quanLySanPham.SuaSoLuongSp(s2.getMaSanPham(), -s1.getSoLuong());
+                    quanLySanPham.SuaSoLuongSp(s1.getMaSanPham(), -s1.getSoLuong());
                 }
             }
         }

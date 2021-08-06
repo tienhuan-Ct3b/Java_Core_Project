@@ -5,9 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvDate;
 import java.time.LocalDate;
-import javax.annotation.processing.Generated;
 
-@Generated("jsonschema2pojo")
 public class SanPham {
 
     private static int maSanPhamLast = 10000;

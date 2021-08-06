@@ -19,7 +19,7 @@ public class LoginJFrame extends javax.swing.JFrame {
      */
     public LoginJFrame() {
         initComponents();
-        
+
     }
 
     /**
@@ -137,7 +137,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             });
         } else {
             //hien thi ra wrong password
-            JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+            JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu");
         }
     }//GEN-LAST:event_LoginActionPerformed
 

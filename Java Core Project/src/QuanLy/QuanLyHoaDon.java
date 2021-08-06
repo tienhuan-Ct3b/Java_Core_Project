@@ -16,12 +16,23 @@ public class QuanLyHoaDon {
     List<HoaDonNhapHang> listHDNhapHang = fileIOHoaDon.NhapHangReadJson();
 
     private int check() {
-        int lastMaHDBH = listHDBanHang.get(listHDBanHang.size() - 1).getMaHoaDon();
-        int lastMaHDNH = listHDNhapHang.get(listHDNhapHang.size() - 1).getMaHoaDon();
-        if (lastMaHDBH > lastMaHDNH) {
+        int index1 = listHDBanHang.size() - 1;
+        int index2 = listHDNhapHang.size() - 1;
+        if (index1 != -1) {
+            int lastMaHDBH = listHDBanHang.get(index1).getMaHoaDon();
+            if (index2 != -1) {
+                int lastMaHDNH = listHDNhapHang.get(index2).getMaHoaDon();
+                if (lastMaHDBH > lastMaHDNH) {
+                    return lastMaHDBH;
+                } else {
+                    return lastMaHDNH;
+                }
+            }
             return lastMaHDBH;
+        } else if (index2 != -1) {
+            return listHDNhapHang.get(index2).getMaHoaDon();
         }
-        return lastMaHDNH;
+        return -1;
     }
 
     public void ThemHDBH(HoaDonBanHang hdbh) {
