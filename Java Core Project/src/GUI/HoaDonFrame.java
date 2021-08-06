@@ -7,22 +7,28 @@ package GUI;
 
 import Objects.HoaDonBanHang;
 import Objects.HoaDonNhapHang;
+import QuanLy.QuanLyHoaDon;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import FileIOCSV.FileIOHoaDon;
+import Objects.SanPham;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author admin
  */
 public class HoaDonFrame extends javax.swing.JFrame {
-    
+
     List<HoaDonBanHang> listHDBH = new ArrayList<>();
     List<HoaDonNhapHang> listHDNH = new ArrayList<>();
     DefaultTableModel BanHangModel;
     DefaultTableModel NhapHangModel;
     FileIOHoaDon f = new FileIOHoaDon();
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    QuanLyHoaDon quanLyHoaDon = new QuanLyHoaDon();
 
     /**
      * Creates new form HoaDonFrame
@@ -33,6 +39,8 @@ public class HoaDonFrame extends javax.swing.JFrame {
         listHDNH = f.NhapHangReadJson();
         BanHangModel = (DefaultTableModel) BanHangTable.getModel();
         NhapHangModel = (DefaultTableModel) NhapHangTable.getModel();
+        updateTableBanHang();
+        updateTableNhapHang();
     }
 
     /**
@@ -52,7 +60,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
         PrintButton1 = new javax.swing.JButton();
         DeleteButton1 = new javax.swing.JButton();
         ExitButton1 = new javax.swing.JButton();
-        SaveButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         FindField1 = new javax.swing.JTextField();
         HoaDonNhapHang = new javax.swing.JPanel();
@@ -61,7 +68,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
         NhapHangTable = new javax.swing.JTable();
         PrintButton2 = new javax.swing.JButton();
         DeleteButton2 = new javax.swing.JButton();
-        SaveButton2 = new javax.swing.JButton();
         ExitButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         FindField2 = new javax.swing.JTextField();
@@ -124,14 +130,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
             }
         });
 
-        SaveButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        SaveButton1.setText("Lưu");
-        SaveButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveButton1ActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Tìm Kiếm");
 
@@ -149,13 +147,11 @@ public class HoaDonFrame extends javax.swing.JFrame {
             .addGroup(HoaDonBanHangLayout.createSequentialGroup()
                 .addGap(138, 138, 138)
                 .addComponent(PrintButton1)
-                .addGap(114, 114, 114)
+                .addGap(189, 189, 189)
                 .addComponent(DeleteButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(SaveButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131)
                 .addComponent(ExitButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
+                .addGap(160, 160, 160))
             .addGroup(HoaDonBanHangLayout.createSequentialGroup()
                 .addGap(122, 122, 122)
                 .addComponent(jLabel2)
@@ -175,13 +171,10 @@ public class HoaDonFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
-                .addGroup(HoaDonBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(HoaDonBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(PrintButton1)
-                        .addComponent(DeleteButton1))
-                    .addGroup(HoaDonBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(SaveButton1)
-                        .addComponent(ExitButton1)))
+                .addGroup(HoaDonBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PrintButton1)
+                    .addComponent(DeleteButton1)
+                    .addComponent(ExitButton1))
                 .addGap(47, 47, 47))
         );
 
@@ -196,19 +189,12 @@ public class HoaDonFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "STT", "Mã Hóa Đơn", "Ngày Lập", "Nhà Phân Phối", "Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá", "Thành Tiền"
+                "STT", "Mã Hóa Đơn", "Ngày Lập", "Nhà Phân Phối", "Thành Tiền"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -220,9 +206,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
             NhapHangTable.getColumnModel().getColumn(0).setMaxWidth(35);
             NhapHangTable.getColumnModel().getColumn(1).setMinWidth(80);
             NhapHangTable.getColumnModel().getColumn(3).setMinWidth(150);
-            NhapHangTable.getColumnModel().getColumn(4).setMinWidth(80);
-            NhapHangTable.getColumnModel().getColumn(5).setMinWidth(150);
-            NhapHangTable.getColumnModel().getColumn(6).setMinWidth(80);
         }
 
         PrintButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -238,14 +221,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
         DeleteButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DeleteButton2ActionPerformed(evt);
-            }
-        });
-
-        SaveButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        SaveButton2.setText("Lưu");
-        SaveButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveButton2ActionPerformed(evt);
             }
         });
 
@@ -272,15 +247,13 @@ public class HoaDonFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane2)
                 .addContainerGap())
             .addGroup(HoaDonNhapHangLayout.createSequentialGroup()
-                .addGap(112, 112, 112)
+                .addGap(136, 136, 136)
                 .addComponent(PrintButton2)
-                .addGap(127, 127, 127)
+                .addGap(201, 201, 201)
                 .addComponent(DeleteButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(SaveButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(147, 147, 147)
                 .addComponent(ExitButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                .addGap(141, 141, 141))
             .addGroup(HoaDonNhapHangLayout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(jLabel1)
@@ -300,13 +273,10 @@ public class HoaDonFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addGroup(HoaDonNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(HoaDonNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(PrintButton2)
-                        .addComponent(DeleteButton2))
-                    .addGroup(HoaDonNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(SaveButton2)
-                        .addComponent(ExitButton2)))
+                .addGroup(HoaDonNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PrintButton2)
+                    .addComponent(DeleteButton2)
+                    .addComponent(ExitButton2))
                 .addGap(49, 49, 49))
         );
 
@@ -329,16 +299,22 @@ public class HoaDonFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SaveButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SaveButton1ActionPerformed
-
     private void ExitButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButton1ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_ExitButton1ActionPerformed
 
     private void DeleteButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButton1ActionPerformed
-        // TODO add your handling code here:
+        int selectedIndex = BanHangTable.getSelectedRow();
+        HoaDonBanHang hdbh = listHDBH.get(selectedIndex);
+        int result = JOptionPane.showConfirmDialog(rootPane,
+                "Bạn có chắc muốn xóa hóa đơn này?",
+                "Xác Nhận",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (result == JOptionPane.YES_OPTION) {
+            quanLyHoaDon.XoaHoaDonBanHang(hdbh.getMaHoaDon());
+            updateTableBanHang();
+        }
     }//GEN-LAST:event_DeleteButton1ActionPerformed
 
     private void PrintButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintButton1ActionPerformed
@@ -350,55 +326,84 @@ public class HoaDonFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_PrintButton2ActionPerformed
 
     private void DeleteButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButton2ActionPerformed
-        // TODO add your handling code here:
+        int selectedIndex = NhapHangTable.getSelectedRow();
+        HoaDonNhapHang hdnh = listHDNH.get(selectedIndex);
+        int result = JOptionPane.showConfirmDialog(rootPane,
+                "Bạn có chắc muốn xóa hóa đơn này?",
+                "Xác Nhận",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (result == JOptionPane.YES_OPTION) {
+            quanLyHoaDon.XoaHoaDonNhapHang(selectedIndex);
+            updateTableNhapHang();
+        }
     }//GEN-LAST:event_DeleteButton2ActionPerformed
 
-    private void SaveButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SaveButton2ActionPerformed
-
     private void ExitButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButton2ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_ExitButton2ActionPerformed
-    
-    public void showResult(){
-        
+
+    private void updateTableBanHang() {
+        int i = 1;
+        BanHangModel.setRowCount(0);
+        for (HoaDonBanHang hdbh : listHDBH) {
+            BanHangModel.addRow(new Object[]{i,
+                hdbh.getMaHoaDon(),
+                hdbh.getNgayLap().format(dateTimeFormatter),
+                hdbh.getGiamGia(),
+                hdbh.getThanhTien()});
+            i++;
+        }
     }
+
+    private void updateTableNhapHang() {
+        int i = 1;
+        NhapHangModel.setRowCount(0);
+        for (HoaDonNhapHang hdnh : listHDNH) {
+            NhapHangModel.addRow(new Object[]{i,
+                hdnh.getMaHoaDon(),
+                hdnh.getNgayLap().format(dateTimeFormatter),
+                hdnh.getNhaSanXuat(),
+                hdnh.getThanhTien()});
+            i++;
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HoaDonFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HoaDonFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HoaDonFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HoaDonFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HoaDonFrame().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(HoaDonFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(HoaDonFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(HoaDonFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(HoaDonFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new HoaDonFrame().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable BanHangTable;
@@ -413,8 +418,6 @@ public class HoaDonFrame extends javax.swing.JFrame {
     private javax.swing.JTable NhapHangTable;
     private javax.swing.JButton PrintButton1;
     private javax.swing.JButton PrintButton2;
-    private javax.swing.JButton SaveButton1;
-    private javax.swing.JButton SaveButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;

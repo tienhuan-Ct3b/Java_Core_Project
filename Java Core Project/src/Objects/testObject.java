@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class testObject {
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
 //        FileIOSanPham fileIOSanPham = new FileIOSanPham();
 //        QuanLySanPham quanLySanPham = new QuanLySanPham();
 ////
@@ -33,8 +33,8 @@ public class testObject {
 //            listSanPhams.remove(0);
 //        }
 //        fileIOSanPham.SanPhamWriteToCSV(listSanPhams);
-        List<HoaDon> listHoaDons = new ArrayList<>();
-        HoaDonBanHang hdbh = new HoaDonBanHang();
-        listHoaDons.add(hdbh);
-    }
+//        List<HoaDon> listHoaDons = new ArrayList<>();
+//        HoaDonBanHang hdbh = new HoaDonBanHang();
+//        listHoaDons.add(hdbh);
+//    }
 }

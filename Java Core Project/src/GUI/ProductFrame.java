@@ -77,8 +77,7 @@ public class ProductFrame extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         QuantityRadioButton = new javax.swing.JRadioButton();
         PriceRadioButton = new javax.swing.JRadioButton();
-        MFDRadioButton = new javax.swing.JRadioButton();
-        EXPRadioButton = new javax.swing.JRadioButton();
+        NameRadioButton = new javax.swing.JRadioButton();
         NSXRadioButton = new javax.swing.JRadioButton();
         GiamRadioButton = new javax.swing.JRadioButton();
         TangRadioButton = new javax.swing.JRadioButton();
@@ -291,21 +290,12 @@ public class ProductFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(MFDRadioButton);
-        MFDRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        MFDRadioButton.setText("Ngày SX");
-        MFDRadioButton.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(NameRadioButton);
+        NameRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        NameRadioButton.setText("Tên Sản Phẩm");
+        NameRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MFDRadioButtonActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(EXPRadioButton);
-        EXPRadioButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        EXPRadioButton.setText("Hạn Sử Dụng");
-        EXPRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EXPRadioButtonActionPerformed(evt);
+                NameRadioButtonActionPerformed(evt);
             }
         });
 
@@ -367,30 +357,30 @@ public class ProductFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(74, 74, 74)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(IDField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(NameField)
-                                    .addComponent(NhaSXField))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(74, 74, 74)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(38, 38, 38)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(IDField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                            .addComponent(NameField)
+                                            .addComponent(NhaSXField)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(89, 89, 89)
+                                        .addComponent(AddButton)
+                                        .addGap(208, 208, 208)
+                                        .addComponent(DeleteButton)))
+                                .addGap(0, 79, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(47, 47, 47)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
-                                .addComponent(jLabel12)
-                                .addGap(39, 39, 39))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addComponent(AddButton)
-                                .addGap(208, 208, 208)
-                                .addComponent(DeleteButton)))
+                                .addGap(61, 61, 61)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -422,22 +412,22 @@ public class ProductFrame extends javax.swing.JFrame {
                                             .addComponent(EXPField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGap(70, 70, 70))
                                 .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel12)
+                                    .addGap(18, 18, 18)
                                     .addComponent(IDRadioButton)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(NameRadioButton)
                                     .addGap(18, 18, 18)
                                     .addComponent(QuantityRadioButton)
                                     .addGap(18, 18, 18)
                                     .addComponent(PriceRadioButton)
                                     .addGap(18, 18, 18)
-                                    .addComponent(MFDRadioButton)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(EXPRadioButton)
-                                    .addGap(18, 18, 18)
                                     .addComponent(NSXRadioButton)
-                                    .addGap(37, 37, 37)
+                                    .addGap(30, 30, 30)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(TangRadioButton)
                                         .addComponent(GiamRadioButton))
-                                    .addGap(22, 22, 22)))
+                                    .addGap(60, 60, 60)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(124, 124, 124)
                                 .addComponent(EditButton)
@@ -498,24 +488,26 @@ public class ProductFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(ResetButton)
-                        .addGap(23, 23, 23)
-                        .addComponent(TangRadioButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GiamRadioButton)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(MFDRadioButton)
-                            .addComponent(PriceRadioButton)
-                            .addComponent(QuantityRadioButton)
-                            .addComponent(EXPRadioButton)
-                            .addComponent(NSXRadioButton)
-                            .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(IDRadioButton)
-                            .addComponent(jLabel12))
-                        .addGap(38, 38, 38)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(NSXRadioButton)
+                                    .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(IDRadioButton)
+                                    .addComponent(jLabel12)
+                                    .addComponent(NameRadioButton)
+                                    .addComponent(QuantityRadioButton)
+                                    .addComponent(PriceRadioButton))
+                                .addGap(38, 38, 38))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(TangRadioButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(GiamRadioButton)
+                                .addGap(28, 28, 28)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -815,17 +807,11 @@ public class ProductFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PriceRadioButtonActionPerformed
 
-    private void MFDRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MFDRadioButtonActionPerformed
-        if (MFDRadioButton.isSelected()) {
+    private void NameRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameRadioButtonActionPerformed
+        if (NameRadioButton.isSelected()) {
             UpdateTable();
         }
-    }//GEN-LAST:event_MFDRadioButtonActionPerformed
-
-    private void EXPRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EXPRadioButtonActionPerformed
-        if (EXPRadioButton.isSelected()) {
-            UpdateTable();
-        }
-    }//GEN-LAST:event_EXPRadioButtonActionPerformed
+    }//GEN-LAST:event_NameRadioButtonActionPerformed
 
     private void NSXRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NSXRadioButtonActionPerformed
         if (NSXRadioButton.isSelected()) {
@@ -863,10 +849,7 @@ public class ProductFrame extends javax.swing.JFrame {
         EXPField.setText("01/01/2000");
     }
 
-    int i = 1;
-
-    private void UpdateTable() {
-        listSanPham = f.SanPhamReadCSV();
+    private void sortList() {
         if (IDRadioButton.isSelected()) {
             if (TangRadioButton.isSelected()) {
                 listSanPham.sort(new MaSPTangComparator());
@@ -875,35 +858,35 @@ public class ProductFrame extends javax.swing.JFrame {
             }
         } else if (QuantityRadioButton.isSelected()) {
             if (TangRadioButton.isSelected()) {
-                listSanPham.sort(new SoLuongSpTangComparator());
+                listSanPham.sort(new SoLuongSpTangComparator().thenComparing(new TenSPTangComparator()));
             } else if (GiamRadioButton.isSelected()) {
-                listSanPham.sort(new SoLuongSPGiamComparator());
+                listSanPham.sort(new SoLuongSPGiamComparator().thenComparing(new TenSPTangComparator()));
             }
         } else if (PriceRadioButton.isSelected()) {
             if (TangRadioButton.isSelected()) {
-                listSanPham.sort(new GiaNhapTangComparator());
+                listSanPham.sort(new GiaNhapTangComparator().thenComparing(new TenSPTangComparator()));
             } else if (GiamRadioButton.isSelected()) {
-                listSanPham.sort(new GiaNhapGiamComparator());
+                listSanPham.sort(new GiaNhapGiamComparator().thenComparing(new TenSPTangComparator()));
             }
-        } else if (MFDRadioButton.isSelected()) {
+        } else if (NameRadioButton.isSelected()) {
             if (TangRadioButton.isSelected()) {
-                listSanPham.sort(new NSXTangComparator());
+                listSanPham.sort(new TenSPTangComparator());
             } else if (GiamRadioButton.isSelected()) {
-                listSanPham.sort(new NSXGiamComparator());
-            }
-        } else if (EXPRadioButton.isSelected()) {
-            if (TangRadioButton.isSelected()) {
-                listSanPham.sort(new HSDTangComparator());
-            } else if (GiamRadioButton.isSelected()) {
-                listSanPham.sort(new HSDGiamComparator());
+                listSanPham.sort(new TenSPGiamComparator());
             }
         } else if (NSXRadioButton.isSelected()) {
             if (TangRadioButton.isSelected()) {
-                listSanPham.sort(new NhaSXTangComparator());
+                listSanPham.sort(new NhaSXTangComparator().thenComparing(new TenSPTangComparator()));
             } else if (GiamRadioButton.isSelected()) {
-                listSanPham.sort(new NSXGiamComparator());
+                listSanPham.sort(new NSXGiamComparator().thenComparing(new TenSPTangComparator()));
             }
         }
+    }
+
+    private void UpdateTable() {
+        int i = 1;
+        listSanPham = f.SanPhamReadCSV();
+        sortList();
         SanPhamModel.setRowCount(0);
         for (SanPham s : listSanPham) {
             SanPhamModel.addRow(new Object[]{i,
@@ -924,8 +907,9 @@ public class ProductFrame extends javax.swing.JFrame {
     }
 
     private void displayDetails(int selectedIndex) {
-        SanPham s = f.SanPhamReadCSV().get(selectedIndex);
-
+        listSanPham = f.SanPhamReadCSV();
+        sortList();
+        SanPham s = listSanPham.get(selectedIndex);
         IDField.setText(String.valueOf(s.getMaSanPham()));
         NameField.setText(s.getTenSanPham());
         NhaSXField.setText(s.getNhaSX());
@@ -940,45 +924,44 @@ public class ProductFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProductFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProductFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProductFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProductFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ProductFrame().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(ProductFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(ProductFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(ProductFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(ProductFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new ProductFrame().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;
     private javax.swing.JButton DeleteButton;
     private javax.swing.JTextField DonViTinhField;
     private javax.swing.JTextField EXPField;
-    private javax.swing.JRadioButton EXPRadioButton;
     private javax.swing.JButton EditButton;
     private javax.swing.JButton ExitButton;
     private javax.swing.JRadioButton GiamRadioButton;
@@ -987,9 +970,9 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JTextField LoaiSPField;
     private javax.swing.JButton LocButton;
     private javax.swing.JTextField MFDField;
-    private javax.swing.JRadioButton MFDRadioButton;
     private javax.swing.JRadioButton NSXRadioButton;
     private javax.swing.JTextField NameField;
+    private javax.swing.JRadioButton NameRadioButton;
     private javax.swing.JTextField NhaSXField;
     private javax.swing.JTextField PriceField;
     private javax.swing.JRadioButton PriceRadioButton;

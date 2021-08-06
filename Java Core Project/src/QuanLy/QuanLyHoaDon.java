@@ -10,11 +10,11 @@ import Objects.*;
 import java.util.List;
 
 public class QuanLyHoaDon {
-
+    
     FileIOHoaDon fileIOHoaDon = new FileIOHoaDon();
     List<HoaDonBanHang> listHDBanHang = fileIOHoaDon.BanHangReadJson();
     List<HoaDonNhapHang> listHDNhapHang = fileIOHoaDon.NhapHangReadJson();
-
+    
     private int check() {
         int index1 = listHDBanHang.size() - 1;
         int index2 = listHDNhapHang.size() - 1;
@@ -34,7 +34,7 @@ public class QuanLyHoaDon {
         }
         return -1;
     }
-
+    
     public void ThemHDBH(HoaDonBanHang hdbh) {
         int temp = check();
         if (temp != -1) {
@@ -43,7 +43,7 @@ public class QuanLyHoaDon {
         listHDBanHang.add(hdbh);
         fileIOHoaDon.BanHangWriteToJson(listHDBanHang);
     }
-
+    
     public void ThemHDNH(HoaDonNhapHang hdnh) {
         int temp = check();
         if (temp != -1) {
@@ -51,5 +51,27 @@ public class QuanLyHoaDon {
         }
         listHDNhapHang.add(hdnh);
         fileIOHoaDon.NhapHangWriteToJson(listHDNhapHang);
+    }
+    
+    public void XoaHoaDonBanHang(int maHoaDon) {
+        int i;
+        for (i = 0; i < listHDBanHang.size(); i++) {
+            if (listHDBanHang.get(i).getMaHoaDon() == maHoaDon) {
+                listHDBanHang.remove(i);
+                fileIOHoaDon.BanHangWriteToJson(listHDBanHang);
+                break;
+            }
+        }        
+    }
+    
+    public void XoaHoaDonNhapHang(int maHoaDon) {
+        int i;
+        for (i = 0; i < listHDNhapHang.size(); i++) {
+            if (listHDNhapHang.get(i).getMaHoaDon() == maHoaDon) {
+                listHDNhapHang.remove(i);
+                fileIOHoaDon.NhapHangWriteToJson(listHDNhapHang);
+                break;
+            }
+        }        
     }
 }
