@@ -16,23 +16,11 @@ import javax.swing.JPanel;
  */
 public class BaseForm extends javax.swing.JFrame {
 
-    private static final String currentDir = System.getProperty("user.dir");
-    private static final String separator = File.separator;
-    private String StrSanPham = currentDir + separator + "data" + separator + "SanPham.csv";
-    private String StrHoaDonBanHang = currentDir + separator + "data" + separator + "HoaDonBanHang.csv";
-    private String StrHoaDonNhapHang = currentDir + separator + "data" + separator + "HoaDonNhapHang.csv";
-    File FileSanPham = new File(StrSanPham);
-    File FileHoaDonBanHang = new File(StrHoaDonBanHang);
-    File FileHoaDonNhapHang = new File(StrHoaDonNhapHang);
-
     /**
      * Creates new form BaseForm
      */
     public BaseForm() {
         initComponents();
-        checkFile(FileSanPham);
-        checkFile(FileHoaDonBanHang);
-        checkFile(FileHoaDonNhapHang);
     }
 
     /**

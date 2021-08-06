@@ -50,7 +50,7 @@ public class FileIOSanPham {
                     String.valueOf(sp.getSoLuong()),
                     sp.getDonViTinh(),
                     String.valueOf(sp.getGiaNhap()),
-                    String.valueOf(sp.getGiaNhap()),
+                    String.valueOf(sp.getGiaBan()),
                     String.valueOf(sp.getNSX()),
                     String.valueOf(sp.getHSD())
                 });

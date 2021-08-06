@@ -23,7 +23,22 @@ public class testfile {
 
     public static void main(String[] args) {
 //        FileIOHoaDon fileIOHoaDon = new FileIOHoaDon();
-//        FileIOSanPham fileIOSanPham = new FileIOSanPham();
+        FileIOSanPham fileIOSanPham = new FileIOSanPham();
+
+        List<SanPham> listSanPhams = new ArrayList<>();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        SanPham s1 = new SanPham("Snack banh gao cay han quoc", "Haitai - Han quoc", "banh keo", 1000, "goi", 35000, LocalDate.parse("08/02/2021", dateTimeFormatter), LocalDate.parse("08/02/2022", dateTimeFormatter));
+        SanPham s2 = new SanPham("Dau goi cafe co cay hoa la 300g", "Wellness", "dau goi", 500, "chai", 187000, LocalDate.parse("06/05/2021", dateTimeFormatter), LocalDate.parse("06/05/2023", dateTimeFormatter));
+        s1.setGiaBan();
+        s2.setGiaBan();
+        listSanPhams.add(s1);
+        listSanPhams.add(s2);
+
+        fileIOSanPham.SanPhamWriteToCSV(listSanPhams);
+        System.out.println(s1.getGiaBan());
+        System.out.println("ok");
+        List<SanPham> list = fileIOSanPham.SanPhamReadCSV();
+        System.out.println(list.get(0).getGiaBan());
 //
 //        List<HoaDonNhapHang> listHoaDonNhapHangs = fileIOHoaDon.NhapHangReadJson();
 //        List<HoaDonBanHang> listHoaDonBanHangs = new FileIOHoaDon().BanHangReadJson();
@@ -52,14 +67,13 @@ public class testfile {
 //        fileIOHoaDon.BanHangWriteToJson(listHoaDonBanHangs);
 //        fileIOHoaDon.NhapHangWriteToJson(listHoaDonNhapHangs);
 //        System.out.println("ok");
-        FileIOHoaDon fileIOHoaDon = new FileIOHoaDon();
-        List<HoaDonBanHang> listHDBanHang = fileIOHoaDon.BanHangReadJson();
-        List<HoaDonNhapHang> listHDNhapHang = fileIOHoaDon.NhapHangReadJson();
-        int index1 = listHDBanHang.size() - 1;
-        int index2 = listHDNhapHang.size() - 1;
-        System.out.println(index1);
-        System.out.println(index2);
-        
+//        FileIOHoaDon fileIOHoaDon = new FileIOHoaDon();
+//        List<HoaDonBanHang> listHDBanHang = fileIOHoaDon.BanHangReadJson();
+//        List<HoaDonNhapHang> listHDNhapHang = fileIOHoaDon.NhapHangReadJson();
+//        int index1 = listHDBanHang.size() - 1;
+//        int index2 = listHDNhapHang.size() - 1;
+//        System.out.println(index1);
+//        System.out.println(index2);
     }
 
     private static int check() {

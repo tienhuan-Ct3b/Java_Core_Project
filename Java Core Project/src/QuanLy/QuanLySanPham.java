@@ -10,20 +10,20 @@ import FileIOCSV.FileIOSanPham;
 import java.util.List;
 
 public class QuanLySanPham {
-    
+
     FileIOSanPham fileIOSanPham = new FileIOSanPham();
     List<SanPham> listSanPham = fileIOSanPham.SanPhamReadCSV();
-    
+
     public void ThemSP(SanPham s) {
         int temp = listSanPham.size() - 1;
         if (temp != -1) {
             SanPham.setMaSanPhamLast(listSanPham.get(temp).getMaSanPham());
         }
-        s.setGiaBan(s.getGiaNhap());
+        s.setGiaBan();
         listSanPham.add(s);
         fileIOSanPham.SanPhamWriteToCSV(listSanPham);
     }
-    
+
     public void ThemSp(List<SanPham> list) {
         list.forEach(s -> {
             ThemSP(s);
@@ -41,7 +41,7 @@ public class QuanLySanPham {
                 listSanPham.get(i).setSoLuong(s2.getSoLuong());
                 listSanPham.get(i).setDonViTinh(s2.getDonViTinh());
                 listSanPham.get(i).setGiaNhap(s2.getGiaNhap());
-                listSanPham.get(i).setGiaBan(s2.getGiaNhap());
+                listSanPham.get(i).setGiaBan();
                 listSanPham.get(i).setNSX(s2.getNSX());
                 listSanPham.get(i).setHSD(s2.getHSD());
                 fileIOSanPham.SanPhamWriteToCSV(listSanPham);
@@ -49,7 +49,7 @@ public class QuanLySanPham {
             }
         }
     }
-    
+
     public void SuaSoLuongSp(int MaSanPham, int soLuong) {
         int i;
         for (i = 0; i < listSanPham.size(); i++) {
@@ -59,7 +59,7 @@ public class QuanLySanPham {
         }
         fileIOSanPham.SanPhamWriteToCSV(listSanPham);
     }
-    
+
     public void xoaSP(int maSanPham) {
         int i;
         for (i = 0; i < listSanPham.size(); i++) {
@@ -70,5 +70,5 @@ public class QuanLySanPham {
             }
         }
     }
-    
+
 }

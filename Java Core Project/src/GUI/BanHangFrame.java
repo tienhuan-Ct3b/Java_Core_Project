@@ -217,12 +217,14 @@ public class BanHangFrame extends javax.swing.JFrame {
 
         TongField.setEditable(false);
         TongField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        TongField.setText("0");
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel14.setText("Tổng Tiền");
 
         TongTienField.setEditable(false);
         TongTienField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        TongTienField.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -376,6 +378,7 @@ public class BanHangFrame extends javax.swing.JFrame {
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         quanLyBanHang.BanHang(listTable, TimeField.getText(), giamGia, tongTien);
+        this.dispose();
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void PrintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintButtonActionPerformed
@@ -390,6 +393,9 @@ public class BanHangFrame extends javax.swing.JFrame {
         tongTien = 0;
         Tong = 0;
         giamGia = 0;
+        TongField.setText(String.valueOf(Tong));
+        GiamGiaField.setText(String.valueOf(giamGia));
+        TongTienField.setText(String.valueOf(tongTien));
         Reset();
         setTimeField();
         updateTable();

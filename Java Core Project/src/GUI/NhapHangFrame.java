@@ -8,6 +8,7 @@ package GUI;
 import Objects.SanPham;
 import FileIOCSV.FileIOHoaDon;
 import FileIOCSV.FileIOSanPham;
+import QuanLy.QuanLyBanHang;
 import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +28,7 @@ public class NhapHangFrame extends javax.swing.JFrame {
 
     FileIOSanPham fileIOSanPham = new FileIOSanPham();
     FileIOHoaDon fileIOHoaDon = new FileIOHoaDon();
+    QuanLyBanHang quanLyBanHang = new QuanLyBanHang();
     public List<SanPham> listSanPhamNhap = new ArrayList<>();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     DefaultTableModel TableModel;
@@ -65,7 +68,7 @@ public class NhapHangFrame extends javax.swing.JFrame {
         QuantityField = new javax.swing.JTextField();
         PriceField = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        SumOfPriceField = new javax.swing.JTextField();
+        ThanhTienField = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         LoaiSPField = new javax.swing.JTextField();
         MFDField = new javax.swing.JTextField();
@@ -84,6 +87,7 @@ public class NhapHangFrame extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         SumOfAllField = new javax.swing.JTextField();
         ResetButton = new javax.swing.JButton();
+        EditProductButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nhập Hàng");
@@ -116,8 +120,18 @@ public class NhapHangFrame extends javax.swing.JFrame {
         jLabel7.setText("Nhà Sản Xuất");
 
         NameField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        NameField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                NameFieldFocusLost(evt);
+            }
+        });
 
         NhaSXField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        NhaSXField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                NhaSXFieldFocusLost(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel8.setText("Số Lượng");
@@ -126,14 +140,25 @@ public class NhapHangFrame extends javax.swing.JFrame {
         jLabel9.setText("Đơn Vị Tính");
 
         QuantityField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        QuantityField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                QuantityFieldFocusLost(evt);
+            }
+        });
 
         PriceField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        PriceField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                PriceFieldFocusLost(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel10.setText("Giá Nhập");
 
-        SumOfPriceField.setEditable(false);
-        SumOfPriceField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        ThanhTienField.setEditable(false);
+        ThanhTienField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        ThanhTienField.setText("0");
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel11.setText("Loại Sản Phẩm");
@@ -142,6 +167,11 @@ public class NhapHangFrame extends javax.swing.JFrame {
 
         MFDField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         MFDField.setText("01/01/2000");
+        MFDField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                MFDFieldFocusLost(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel12.setText("Thành Tiền");
@@ -154,6 +184,11 @@ public class NhapHangFrame extends javax.swing.JFrame {
 
         EXPField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         EXPField.setText("01/01/2000");
+        EXPField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                EXPFieldFocusLost(evt);
+            }
+        });
 
         DonViTinhField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -245,6 +280,14 @@ public class NhapHangFrame extends javax.swing.JFrame {
             }
         });
 
+        EditProductButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        EditProductButton.setText("Sửa Sản Phẩm");
+        EditProductButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditProductButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -260,36 +303,41 @@ public class NhapHangFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel9))
-                                        .addGap(24, 24, 24)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(DonViTinhField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(LoaiSPField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(109, 109, 109)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addGap(49, 49, 49)
-                                        .addComponent(SumOfPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                                                .addComponent(QuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jLabel10)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(PriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(122, 122, 122)
-                                            .addComponent(AddProductButton))))
+                                                .addComponent(jLabel6)
+                                                .addGap(26, 26, 26)
+                                                .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel11)
+                                                    .addComponent(jLabel9))
+                                                .addGap(24, 24, 24)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(DonViTinhField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(LoaiSPField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(109, 109, 109)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel12)
+                                                .addGap(49, 49, 49)
+                                                .addComponent(ThanhTienField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jLabel8)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                                                        .addComponent(QuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                        .addComponent(jLabel10)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(PriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGap(122, 122, 122)
+                                                    .addComponent(AddProductButton)))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(193, 193, 193)
+                                        .addComponent(EditProductButton)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -377,14 +425,15 @@ public class NhapHangFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(SumOfPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ThanhTienField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DonViTinhField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(18, 18, 18)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EditProductButton)
                     .addComponent(AddProductButton)
                     .addComponent(ResetButton))
-                .addGap(83, 83, 83)
+                .addGap(45, 45, 45)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -404,11 +453,12 @@ public class NhapHangFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PrintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintButtonActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_PrintButtonActionPerformed
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
-
+        quanLyBanHang.NhapHang(listSanPhamNhap, TimeField.getText(), Tong);
+        this.dispose();
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
@@ -441,12 +491,14 @@ public class NhapHangFrame extends javax.swing.JFrame {
         s.setSoLuong(Integer.parseInt(QuantityField.getText()));
         s.setDonViTinh(DonViTinhField.getText());
         s.setGiaNhap(Integer.parseInt(PriceField.getText()));
-        s.setGiaBan(Integer.parseInt(PriceField.getText()));
+        s.setGiaBan();
         LocalDate NSX = LocalDate.parse(MFDField.getText(), dateTimeFormatter);
         LocalDate HSD = LocalDate.parse(EXPField.getText(), dateTimeFormatter);
         s.setNSX(NSX);
         s.setHSD(HSD);
         listSanPhamNhap.add(s);
+        Tong += s.getGiaNhap() * s.getSoLuong();
+        SumOfAllField.setText(String.valueOf(Tong));
         updateTable();
         Reset();
     }//GEN-LAST:event_AddProductButtonActionPerformed
@@ -464,15 +516,212 @@ public class NhapHangFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SanPhamNhapTableKeyReleased
 
+    private void EditProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProductButtonActionPerformed
+        int selectedIndex = SanPhamNhapTable.getSelectedRow();
+        if (selectedIndex == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Hãy chọn sản phẩm cần sửa!");
+        } else {
+            int result = JOptionPane.showConfirmDialog(rootPane,
+                    "Bạn có chắc muốn sửa sản phẩm này?",
+                    "Xác Nhận",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (result == JOptionPane.YES_OPTION) {
+                SanPham s = listSanPhamNhap.get(selectedIndex);
+                s.setTenSanPham(NameField.getText());
+                s.setNhaSX(NhaSXField.getText());
+                s.setLoaiSanPham(LoaiSPField.getText());
+                s.setSoLuong(Integer.parseInt(QuantityField.getText()));
+                s.setDonViTinh(DonViTinhField.getText());
+                s.setGiaNhap(Integer.parseInt(PriceField.getText()));
+                s.setGiaBan();
+                LocalDate NSX = LocalDate.parse(MFDField.getText(), dateTimeFormatter);
+                LocalDate HSD = LocalDate.parse(EXPField.getText(), dateTimeFormatter);
+                s.setNSX(NSX);
+                s.setHSD(HSD);
+                listSanPhamNhap.set(selectedIndex, s);
+                updateTable();
+                Reset();
+            }
+        }
+    }//GEN-LAST:event_EditProductButtonActionPerformed
+
+    private void NhaSXFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NhaSXFieldFocusLost
+        if (NhaSXField.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Nhà sản xuất không được để trống!");
+        }
+    }//GEN-LAST:event_NhaSXFieldFocusLost
+
+    private void NameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NameFieldFocusLost
+        if (NameField.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Tên không được để trống!");
+        }
+    }//GEN-LAST:event_NameFieldFocusLost
+
+    private void QuantityFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_QuantityFieldFocusLost
+        if (QuantityField.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Số lượng không được để trống!");
+        } else {
+            boolean ok = true;
+            try {
+                int soLuong = Integer.parseInt(QuantityField.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(rootPane, "Số Lượng không được chứa kí tự khác!");
+                ok = false;
+            }
+            if (ok) {
+                int soLuong = Integer.parseInt(QuantityField.getText());
+                if (soLuong <= 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Số lượng phải lớn hơn 0!");
+                } else if (!PriceField.getText().trim().equals("")) {
+                    int giaNhap = Integer.parseInt(PriceField.getText());
+                    ThanhTienField.setText(String.valueOf(giaNhap * soLuong));
+                }
+            }
+        }
+    }//GEN-LAST:event_QuantityFieldFocusLost
+
+    private void PriceFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PriceFieldFocusLost
+        if (PriceField.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Giá nhập không được để trống!");
+        } else {
+            boolean ok = true;
+            try {
+                int giaNhap = Integer.parseInt(PriceField.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(rootPane, "Giá nhập không được chứa kí tự khác!");
+                ok = false;
+            }
+            if (ok) {
+                int giaNhap = Integer.parseInt(PriceField.getText());
+                if (giaNhap <= 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Giá nhập phải lớn hơn 0!");
+                } else if (!QuantityField.getText().trim().equals("")) {
+                    int soLuong = Integer.parseInt(QuantityField.getText());
+                    ThanhTienField.setText(String.valueOf(giaNhap * soLuong));
+                }
+            }
+        }
+    }//GEN-LAST:event_PriceFieldFocusLost
+
+    private void MFDFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MFDFieldFocusLost
+        String reg = "^\\d{2}/\\d{2}/\\d{4}$";
+        if (!MFDField.getText().matches(reg)) {
+            JOptionPane.showMessageDialog(rootPane, "NSX sai định dạng!");
+        } else {
+            String[] s = MFDField.getText().split("/");
+            int d = Integer.parseInt(s[0]);
+            int m = Integer.parseInt(s[1]);
+            int y = Integer.parseInt(s[2]);
+            if (m == 0 || m > 12) {
+                JOptionPane.showMessageDialog(rootPane, "Tháng không hợp lệ!");
+            } else {
+                if (d <= 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                } else {
+                    switch (m) {
+                        case 1:
+                        case 3:
+                        case 5:
+                        case 7:
+                        case 8:
+                        case 10:
+                        case 12:
+                            if (d > 31) {
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                            }
+                            break;
+                        case 4:
+                        case 6:
+                        case 9:
+                        case 11:
+                            if (d > 30) {
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                            }
+                            break;
+                        case 2:
+                            if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) {
+                                if (d > 29) {
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                                }
+                            } else {
+                                if (d > 28) {
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                                }
+                            }
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_MFDFieldFocusLost
+
+    private void EXPFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EXPFieldFocusLost
+        String reg = "^\\d{2}/\\d{2}/\\d{4}$";
+        if (!EXPField.getText().matches(reg)) {
+            JOptionPane.showMessageDialog(rootPane, "HSD sai định dạng!");
+        } else {
+            String[] s = EXPField.getText().split("/");
+            int d = Integer.parseInt(s[0]);
+            int m = Integer.parseInt(s[1]);
+            int y = Integer.parseInt(s[2]);
+            if (m == 0 || m > 12) {
+                JOptionPane.showMessageDialog(rootPane, "Tháng không hợp lệ!");
+            } else {
+                if (d <= 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                } else {
+                    switch (m) {
+                        case 1:
+                        case 3:
+                        case 5:
+                        case 7:
+                        case 8:
+                        case 10:
+                        case 12:
+                            if (d > 31) {
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                            }
+                            break;
+                        case 4:
+                        case 6:
+                        case 9:
+                        case 11:
+                            if (d > 30) {
+                                JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                            }
+                            break;
+                        case 2:
+                            if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) {
+                                if (d > 29) {
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                                }
+                            } else {
+                                if (d > 28) {
+                                    JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                                }
+                            }
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(rootPane, "Ngày không hợp lệ!");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_EXPFieldFocusLost
+
     private void Reset() {
         NameField.setText("");
-        NhaSXField.setText("");
         LoaiSPField.setText("");
         QuantityField.setText("");
         DonViTinhField.setText("");
         PriceField.setText("");
         MFDField.setText("01/01/2000");
         EXPField.setText("01/01/2000");
+        ThanhTienField.setText("");
     }
 
     private void setTimeField() {
@@ -548,6 +797,7 @@ public class NhapHangFrame extends javax.swing.JFrame {
     private javax.swing.JButton CancelButton;
     private javax.swing.JTextField DonViTinhField;
     private javax.swing.JTextField EXPField;
+    private javax.swing.JButton EditProductButton;
     private javax.swing.JButton ExitButton;
     private javax.swing.JTextField LoaiSPField;
     private javax.swing.JTextField MFDField;
@@ -559,7 +809,7 @@ public class NhapHangFrame extends javax.swing.JFrame {
     private javax.swing.JButton ResetButton;
     private javax.swing.JTable SanPhamNhapTable;
     private javax.swing.JTextField SumOfAllField;
-    private javax.swing.JTextField SumOfPriceField;
+    private javax.swing.JTextField ThanhTienField;
     private javax.swing.JTextField TimeField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

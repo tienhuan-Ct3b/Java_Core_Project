@@ -115,6 +115,11 @@ public class ProductFrame extends javax.swing.JFrame {
 
         NhaSXField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         NhaSXField.setToolTipText("");
+        NhaSXField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                NhaSXFieldFocusLost(evt);
+            }
+        });
 
         PriceField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         PriceField.setToolTipText("");
@@ -385,8 +390,7 @@ public class ProductFrame extends javax.swing.JFrame {
                                 .addGap(89, 89, 89)
                                 .addComponent(AddButton)
                                 .addGap(208, 208, 208)
-                                .addComponent(DeleteButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(DeleteButton)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -579,7 +583,7 @@ public class ProductFrame extends javax.swing.JFrame {
                 s.setSoLuong(Integer.parseInt(QuantityField.getText()));
                 s.setDonViTinh(DonViTinhField.getText());
                 s.setGiaNhap(Integer.parseInt(PriceField.getText()));
-                s.setGiaBan(Integer.parseInt(PriceField.getText()));
+                s.setGiaBan();
                 LocalDate NSX = LocalDate.parse(MFDField.getText(), dateTimeFormatter);
                 LocalDate HSD = LocalDate.parse(EXPField.getText(), dateTimeFormatter);
                 s.setNSX(NSX);
@@ -648,24 +652,40 @@ public class ProductFrame extends javax.swing.JFrame {
     private void QuantityFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_QuantityFieldFocusLost
         if (QuantityField.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Số lượng không được để trống!");
-        } else if (Integer.parseInt(QuantityField.getText()) <= 0) {
-            JOptionPane.showMessageDialog(rootPane, "Số lượng phải lớn hơn 0!");
+        } else {
+            boolean ok = true;
+            try {
+                int soLuong = Integer.parseInt(QuantityField.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(rootPane, "Số Lượng không được chứa kí tự khác!");
+                ok = false;
+            }
+            if (ok) {
+                int soLuong = Integer.parseInt(QuantityField.getText());
+                if (soLuong <= 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Số lượng phải lớn hơn 0!");
+                }
+            }
         }
     }//GEN-LAST:event_QuantityFieldFocusLost
 
     private void PriceFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PriceFieldFocusLost
-        if (QuantityField.getText().equals("")) {
+        if (PriceField.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Giá nhập không được để trống!");
         } else {
+            boolean ok = true;
             try {
-                int soLuong = Integer.parseInt(QuantityField.getText());
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "Số Lượng không được chứa kí tự khác!");
+                int giaNhap = Integer.parseInt(PriceField.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(rootPane, "Giá nhập không được chứa kí tự khác!");
+                ok = false;
             }
-            if(Integer.parseInt(QuantityField.getText()) <= 0){
-                JOptionPane.showMessageDialog(rootPane, "Số lượng phải lớn hơn không!");
+            if (ok) {
+                int giaNhap = Integer.parseInt(PriceField.getText());
+                if (giaNhap <= 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Giá nhập phải lớn hơn 0!");
+                }
             }
-                
         }
     }//GEN-LAST:event_PriceFieldFocusLost
 
@@ -825,6 +845,12 @@ public class ProductFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_GiamRadioButtonActionPerformed
 
+    private void NhaSXFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NhaSXFieldFocusLost
+        if (NhaSXField.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Nhà sản xuất không được để trống!");
+        }
+    }//GEN-LAST:event_NhaSXFieldFocusLost
+
     private void Reset() {
         IDField.setText("");
         NameField.setText("");
@@ -841,7 +867,6 @@ public class ProductFrame extends javax.swing.JFrame {
 
     private void UpdateTable() {
         listSanPham = f.SanPhamReadCSV();
-
         if (IDRadioButton.isSelected()) {
             if (TangRadioButton.isSelected()) {
                 listSanPham.sort(new MaSPTangComparator());

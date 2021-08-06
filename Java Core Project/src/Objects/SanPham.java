@@ -137,8 +137,8 @@ public class SanPham {
         return giaBan;
     }
 
-    public void setGiaBan(int giaNhap) {
-        this.giaBan = (int) (giaNhap * 1.2);
+    public void setGiaBan() {
+        this.giaBan = (int) (getGiaNhap() * 1.2);
     }
 
     public LocalDate getNSX() {
